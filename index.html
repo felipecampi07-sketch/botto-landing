@@ -334,6 +334,36 @@
   /* ── SCROLL REVEAL ── */
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── CHIP 3D ── */
+  .chip-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+    position: relative;
+    height: 520px;
+  }
+  #chipCanvas {
+    width: 520px;
+    height: 520px;
+    display: block;
+    cursor: pointer;
+  }
+  .chip-tag {
+    position: absolute; top: 1.2rem; left: 50%; transform: translateX(-50%);
+    font-size: 10px; color: var(--naranja); letter-spacing: 3px;
+    pointer-events: none; white-space: nowrap;
+  }
+  .chip-hint {
+    position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+    font-size: 11px; color: #333; letter-spacing: 2px;
+    pointer-events: none; white-space: nowrap;
+  }
+  .chip-side-label {
+    position: absolute; bottom: 3.2rem; left: 50%; transform: translateX(-50%);
+    font-size: 12px; color: #555; letter-spacing: 1px;
+    pointer-events: none; transition: opacity 0.4s; white-space: nowrap;
+  }
 </style>
 </head>
 <body>
@@ -416,6 +446,12 @@
     <p class="section-tag reveal">SERVICIOS</p>
     <h2 class="section-title reveal">Lo que BOTTO hace por vos</h2>
     <p class="section-sub reveal">Bots inteligentes por WhatsApp que atienden, agendan y responden — sin que vos tengas que estar.</p>
+    <div class="chip-wrap">
+      <canvas id="chipCanvas"></canvas>
+      <div class="chip-tag">BOTTO · AI ENGINE</div>
+      <div class="chip-side-label" id="sideLabel">CARA FRONTAL</div>
+      <div class="chip-hint">CLICK PARA GIRAR</div>
+    </div>
     <div class="services-grid reveal">
       <div class="service-card">
         <div class="service-icon">
@@ -649,6 +685,220 @@
     });
   }, { threshold: 0.12 });
   reveals.forEach(el => observer.observe(el));
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+window.addEventListener('load', function () {
+  const W = 520, H = 520;
+  const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('chipCanvas'), antialias: true });
+  renderer.setSize(W, H);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.shadowMap.enabled = true;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.2;
+
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x111111);
+  const camera = new THREE.PerspectiveCamera(42, W / H, 0.1, 100);
+  camera.position.set(0, 0, 6);
+  camera.lookAt(0, 0, 0);
+
+  scene.add(new THREE.AmbientLight(0xffffff, 0.35));
+  const mainLight = new THREE.DirectionalLight(0xffffff, 1.6);
+  mainLight.position.set(4, 6, 6); mainLight.castShadow = true;
+  scene.add(mainLight);
+  const orangeLight = new THREE.PointLight(0xFF6B00, 2.2, 8);
+  orangeLight.position.set(-3, 1, 3); scene.add(orangeLight);
+  const goldLight = new THREE.PointLight(0xC9A84C, 1.8, 6);
+  goldLight.position.set(3, -1, 2); scene.add(goldLight);
+  const backLight = new THREE.DirectionalLight(0x223366, 0.6);
+  backLight.position.set(-3, 2, -4); scene.add(backLight);
+
+  const chipBodyMat = new THREE.MeshStandardMaterial({ color: 0x0d0d12, metalness: 0.3, roughness: 0.65 });
+  const goldMat     = new THREE.MeshStandardMaterial({ color: 0xC9A84C, metalness: 0.96, roughness: 0.08 });
+  const copperMat   = new THREE.MeshStandardMaterial({ color: 0xb87333, metalness: 0.9,  roughness: 0.15 });
+  const circuitMat  = new THREE.MeshStandardMaterial({ color: 0xFF6B00, metalness: 0.6,  roughness: 0.3, emissive: 0xFF6B00, emissiveIntensity: 0.2 });
+  const darkMat     = new THREE.MeshStandardMaterial({ color: 0x0d0d14, metalness: 0.2,  roughness: 0.8 });
+  const silverMat   = new THREE.MeshStandardMaterial({ color: 0x8899aa, metalness: 0.88, roughness: 0.22 });
+  const backPlateMat= new THREE.MeshStandardMaterial({ color: 0x080810, metalness: 0.4,  roughness: 0.5 });
+
+  const chipGroup = new THREE.Group();
+  scene.add(chipGroup);
+
+  const body = new THREE.Mesh(new THREE.BoxGeometry(3.2, 3.2, 0.24), chipBodyMat);
+  body.castShadow = true; body.receiveShadow = true;
+  chipGroup.add(body);
+
+  const bevelMat = new THREE.MeshStandardMaterial({ color: 0x1a1a22, metalness: 0.4, roughness: 0.7 });
+  const bevel = new THREE.Mesh(new THREE.BoxGeometry(3.26, 3.26, 0.20), bevelMat);
+  bevel.position.z = -0.02; chipGroup.add(bevel);
+
+  const backPlate = new THREE.Mesh(new THREE.BoxGeometry(3.18, 3.18, 0.01), backPlateMat);
+  backPlate.position.z = -0.12; chipGroup.add(backPlate);
+
+  function addTrace(x1, y1, x2, y2, w) {
+    w = w || 0.025;
+    const dx = x2-x1, dy = y2-y1, len = Math.sqrt(dx*dx+dy*dy);
+    const mesh = new THREE.Mesh(new THREE.BoxGeometry(len, w, 0.01), circuitMat);
+    mesh.position.set((x1+x2)/2, (y1+y2)/2, 0.125);
+    mesh.rotation.z = Math.atan2(dy, dx);
+    chipGroup.add(mesh);
+  }
+  function addVia(x, y, r) {
+    r = r || 0.045;
+    const mesh = new THREE.Mesh(new THREE.CylinderGeometry(r, r, 0.012, 8), goldMat);
+    mesh.rotation.x = Math.PI/2; mesh.position.set(x, y, 0.127);
+    chipGroup.add(mesh);
+  }
+
+  [[-1.3,-1.1,1.3,-1.1],[-1.3,-0.6,0.8,-0.6],[-.9,-0.2,1.3,-0.2],[-1.3,0.3,0.6,0.3],
+   [-0.7,0.7,1.3,0.7],[-1.3,1.1,0.4,1.1],[0.2,-0.8,1.1,-0.8],[-1.1,0.0,-0.1,0.0],[0.5,0.5,1.3,0.5]
+  ].forEach(t => addTrace(t[0],t[1],t[2],t[3]));
+  [[-0.9,-1.3,-0.9,1.3],[0.1,-1.1,0.1,1.1],[0.9,-1.3,0.9,1.3],[-0.4,-0.9,-0.4,0.5],[0.5,-0.7,0.5,1.1]
+  ].forEach(t => addTrace(t[0],t[1],t[2],t[3]));
+  [[-0.9,-1.1],[0.1,-0.2],[0.9,-1.1],[0.9,0.9],[-0.9,0.9],[0.5,0.1],[-0.4,0.5],[0.1,-0.8],[0.5,-0.7],[-0.4,-0.5],[0.9,0.3],[-0.9,0.3]
+  ].forEach(v => addVia(v[0],v[1]));
+
+  function addBlock(x, y, w, h, d, mat) {
+    const mesh = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), mat);
+    mesh.position.set(x, y, 0.13); chipGroup.add(mesh);
+  }
+  addBlock(-1.2,-1.2,0.55,0.55,0.07,darkMat); addBlock(1.2,-1.2,0.55,0.55,0.07,darkMat);
+  addBlock(-1.2,1.2,0.55,0.55,0.07,darkMat);  addBlock(1.2,1.2,0.55,0.55,0.07,darkMat);
+  addBlock(0,-1.25,1.0,0.28,0.05,silverMat);  addBlock(0,1.25,1.0,0.28,0.05,silverMat);
+
+  const dieMat2 = new THREE.MeshStandardMaterial({ color: 0x080812, metalness: 0.55, roughness: 0.38 });
+  const die = new THREE.Mesh(new THREE.BoxGeometry(1.6,1.6,0.07), dieMat2);
+  die.position.z = 0.155; chipGroup.add(die);
+  const dieFrame = new THREE.Mesh(new THREE.BoxGeometry(1.65,1.65,0.072), goldMat);
+  dieFrame.position.z = 0.152; chipGroup.add(dieFrame);
+  for (let i=0;i<3;i++) for (let j=0;j<3;j++) {
+    const sub = new THREE.Mesh(new THREE.BoxGeometry(0.44,0.44,0.072), darkMat);
+    sub.position.set(-0.48+i*0.48, -0.48+j*0.48, 0.155); chipGroup.add(sub);
+  }
+
+  function addRing(cx, cy, r, sw, mat) {
+    const pts = [];
+    for (let i=0;i<=64;i++) { const a=(i/64)*Math.PI*2; pts.push(new THREE.Vector3(Math.cos(a)*r, Math.sin(a)*r, 0)); }
+    const tube = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true), 80, sw, 10, true);
+    const mesh = new THREE.Mesh(tube, mat);
+    mesh.position.set(cx, cy, 0.2); chipGroup.add(mesh);
+  }
+  const ringMat = new THREE.MeshStandardMaterial({ color:0xFF6B00, metalness:0.7, roughness:0.2, emissive:0xFF6B00, emissiveIntensity:0.5 });
+  const dotGlowMat = new THREE.MeshStandardMaterial({ color:0xC9A84C, metalness:0.9, roughness:0.1, emissive:0xC9A84C, emissiveIntensity:0.6 });
+  addRing(-0.32, 0, 0.26, 0.05, ringMat);
+  addRing( 0.32, 0, 0.26, 0.05, ringMat);
+  const dotMesh = new THREE.Mesh(new THREE.SphereGeometry(0.07, 16, 16), dotGlowMat);
+  dotMesh.position.set(0.32, 0, 0.22); chipGroup.add(dotMesh);
+
+  for (let i=0;i<12;i++) {
+    const off = -1.54 + i*0.28;
+    const pg = new THREE.BoxGeometry(0.1, 0.06, 0.18);
+    const addPin = (x, y, z) => { const m=new THREE.Mesh(pg, copperMat); m.position.set(x,y,z); chipGroup.add(m); };
+    addPin(-1.7, off, 0); addPin(1.7, off, 0); addPin(off, -1.7, 0); addPin(off, 1.7, 0);
+  }
+
+  const pGeo = new THREE.BufferGeometry();
+  const pPos = new Float32Array(150*3);
+  for (let i=0;i<150;i++) { pPos[i*3]=(Math.random()-0.5)*12; pPos[i*3+1]=(Math.random()-0.5)*12; pPos[i*3+2]=(Math.random()-0.5)*8; }
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+  const particles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color:0xFF6B00, size:0.025, transparent:true, opacity:0.35 }));
+  scene.add(particles);
+
+  const featureCanvas = document.createElement('canvas');
+  featureCanvas.width = 1024; featureCanvas.height = 1024;
+  const ctx2d = featureCanvas.getContext('2d');
+  const featureTex = new THREE.CanvasTexture(featureCanvas);
+  const featurePlane = new THREE.Mesh(
+    new THREE.PlaneGeometry(2.9, 2.9),
+    new THREE.MeshStandardMaterial({ map: featureTex, transparent: false, metalness: 0.0, roughness: 1.0 })
+  );
+  featurePlane.position.z = -0.13; featurePlane.rotation.y = Math.PI;
+  chipGroup.add(featurePlane);
+
+  const features = [
+    { title: 'IA A MEDIDA',     sub: 'Entrenada para tu negocio específico' },
+    { title: 'PERSONALIZACIÓN', sub: 'Tu marca, tu identidad, tus reglas'   },
+    { title: 'SIMPLICIDAD',     sub: 'Sin apps nuevas, sin configuraciones' },
+    { title: 'AHORRA HORAS',    sub: 'Atención automática las 24 horas'     },
+  ];
+
+  let circuitProgress = 0;
+  function drawFeatureCanvas(cp) {
+    ctx2d.clearRect(0,0,1024,1024);
+    ctx2d.fillStyle = '#080810'; ctx2d.fillRect(0,0,1024,1024);
+    const lines = [
+      [60,148,964,148],[60,902,964,902],[60,148,60,902],[964,148,964,902],
+      [88,385,964,385],[88,550,964,550],[88,715,964,715],
+    ];
+    lines.forEach((l,i) => {
+      const delay = i*0.1, p = Math.max(0, Math.min(1,(cp-delay)/0.3));
+      if (p<=0) return;
+      const isGold = i===2||i===3;
+      ctx2d.strokeStyle = isGold ? `rgba(201,168,76,${p*0.6})` : `rgba(255,107,0,${p*0.4})`;
+      ctx2d.shadowColor = isGold ? '#C9A84C' : '#FF6B00'; ctx2d.shadowBlur=4;
+      ctx2d.lineWidth = isGold ? 2 : 1.5;
+      const x1=l[0],y1=l[1],x2=l[2],y2=l[3], ex=x1+(x2-x1)*p, ey=y1+(y2-y1)*p;
+      ctx2d.beginPath(); ctx2d.moveTo(x1,y1); ctx2d.lineTo(ex,ey); ctx2d.stroke();
+    });
+    [[60,148],[964,148],[60,902],[964,902],[960,385],[960,550],[960,715]].forEach((v,i) => {
+      const p = Math.max(0, Math.min(1,(cp-i*0.08)/0.2));
+      if (p<=0) return;
+      ctx2d.fillStyle=`rgba(201,168,76,${p})`; ctx2d.shadowColor='#C9A84C'; ctx2d.shadowBlur=8;
+      ctx2d.beginPath(); ctx2d.arc(v[0],v[1],6,0,Math.PI*2); ctx2d.fill();
+    });
+    ctx2d.shadowBlur=0;
+    ctx2d.font='500 26px monospace'; ctx2d.fillStyle=`rgba(255,107,0,${cp})`;
+    ctx2d.fillText('BOTTO ENGINE · SPECS', 88, 110);
+    features.forEach((f,i) => {
+      const fp = Math.max(0, Math.min(1,(cp-i*0.18)/0.4));
+      const y = 230 + i*165;
+      ctx2d.fillStyle=`rgba(255,107,0,${fp*0.9})`; ctx2d.beginPath(); ctx2d.arc(88,y-10,8,0,Math.PI*2); ctx2d.fill();
+      ctx2d.font='bold 30px monospace'; ctx2d.fillStyle=`rgba(245,245,245,${fp})`; ctx2d.fillText(f.title,112,y);
+      ctx2d.font='400 20px monospace'; ctx2d.fillStyle=`rgba(136,136,153,${fp*0.85})`; ctx2d.fillText(f.sub,112,y+36);
+    });
+    ctx2d.font='400 18px monospace'; ctx2d.fillStyle=`rgba(201,168,76,${cp*0.5})`; ctx2d.fillText('bottoauto.org',88,950);
+    featureTex.needsUpdate = true;
+  }
+  drawFeatureCanvas(0);
+
+  let flipped=false, currentRotY=0, isFlipping=false;
+  const sideLabel = document.getElementById('sideLabel');
+
+  document.getElementById('chipCanvas').addEventListener('click', () => {
+    if (isFlipping) return;
+    isFlipping = true;
+    const flipTo = flipped ? 0 : Math.PI;
+    flipped = !flipped;
+    if (flipped) { circuitProgress = 0; }
+    const start=currentRotY, end=flipTo, duration=1000, startTime=performance.now();
+    sideLabel.style.opacity='0';
+    function doFlip(now) {
+      const elapsed=now-startTime, progress=Math.min(elapsed/duration,1);
+      const ease = progress<0.5 ? 4*progress*progress*progress : 1-Math.pow(-2*progress+2,3)/2;
+      currentRotY = start+(end-start)*ease;
+      chipGroup.rotation.y = currentRotY;
+      if (progress<1) { requestAnimationFrame(doFlip); }
+      else { isFlipping=false; sideLabel.textContent=flipped?'CARA TRASERA — CAPACIDADES':'CARA FRONTAL'; sideLabel.style.opacity='1'; }
+    }
+    requestAnimationFrame(doFlip);
+  });
+
+  let t = 0;
+  (function animate() {
+    requestAnimationFrame(animate);
+    t += 0.01;
+    if (!isFlipping) { chipGroup.rotation.y=currentRotY+Math.sin(t*0.3)*0.04; chipGroup.rotation.x=Math.sin(t*0.2)*0.03; }
+    chipGroup.position.y = Math.sin(t*0.5)*0.08;
+    orangeLight.intensity = 2.0+Math.sin(t*1.2)*0.4;
+    goldLight.intensity   = 1.6+Math.cos(t*0.8)*0.3;
+    particles.rotation.z += 0.0003;
+    if (flipped && !isFlipping) { circuitProgress=Math.min(1,circuitProgress+0.018); drawFeatureCanvas(circuitProgress); }
+    else if (!flipped && circuitProgress>0) { circuitProgress=0; drawFeatureCanvas(0); }
+    renderer.render(scene, camera);
+  })();
+});
 </script>
 </body>
 </html>

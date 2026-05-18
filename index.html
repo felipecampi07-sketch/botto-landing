@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOTTO — Tu negocio trabaja. BOTTO también.</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --negro: #0A0A0A;
+    --naranja: #FF6B00;
+    --dorado: #C9A84C;
+    --carbon: #111111;
+    --gris: #1E1E1E;
+    --blanco: #F5F5F5;
+    --texto-muted: #555555;
+    --texto-dim: #333333;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--negro);
+    color: var(--blanco);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 3rem;
+    border-bottom: 0.5px solid transparent;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  nav.scrolled {
+    background: rgba(10,10,10,0.92);
+    border-bottom-color: var(--gris);
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+  .nav-logo-text {
+    font-size: 18px; font-weight: 500; color: var(--blanco);
+    letter-spacing: 5px;
+  }
+  .nav-links { display: flex; gap: 2.5rem; }
+  .nav-links a {
+    font-size: 13px; color: var(--texto-muted);
+    text-decoration: none; letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--blanco); }
+  .nav-cta {
+    background: var(--naranja); color: #fff;
+    border: none; padding: 9px 22px;
+    border-radius: 7px; font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500; cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.88; }
+
+  /* ── LOGO SVG ANIMADO ── */
+  .logo-svg { width: 40px; height: 24px; }
+  .logo-ring {
+    fill: none; stroke: var(--naranja); stroke-width: 7;
+  }
+  .logo-track {
+    fill: none; stroke: #1a1a1a; stroke-width: 7;
+  }
+  .logo-fade-1 {
+    fill: none;
+    stroke: var(--dorado);
+    stroke-width: 4;
+    stroke-dasharray: 60 73;
+    animation: spin1 4s linear infinite;
+    transform-origin: 26px 30px;
+  }
+  .logo-fade-2 {
+    fill: none;
+    stroke: var(--dorado);
+    stroke-width: 4;
+    stroke-dasharray: 60 73;
+    animation: spin2 4s linear infinite;
+    transform-origin: 74px 30px;
+  }
+  .logo-dot { fill: var(--dorado); animation: breathe 5s ease-in-out infinite; }
+
+  @keyframes spin1 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes spin2 { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+  @keyframes breathe { 0%,100%{r:5;} 50%{r:7;} }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,107,0,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,107,0,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .hero-bg-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,107,0,0.06) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%, -60%);
+    pointer-events: none;
+  }
+
+  .hero-logo-wrap {
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-logo-icon {
+    width: 100px; height: 100px;
+    background: var(--carbon);
+    border-radius: 24px;
+    border: 0.5px solid var(--gris);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto;
+  }
+  .hero-logo-svg { width: 64px; height: 38px; }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,107,0,0.08);
+    border: 0.5px solid rgba(255,107,0,0.25);
+    color: var(--naranja);
+    font-size: 11px; letter-spacing: 2px;
+    padding: 6px 16px; border-radius: 100px;
+    margin-bottom: 1.75rem;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 500; line-height: 1.1;
+    color: var(--blanco); margin-bottom: 1.25rem;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero h1 .accent { color: var(--naranja); }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: var(--texto-muted); max-width: 480px;
+    line-height: 1.7; margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-btns {
+    display: flex; gap: 12px; justify-content: center;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+  .btn-primary {
+    background: var(--naranja); color: #fff;
+    padding: 13px 30px; border-radius: 8px;
+    font-size: 14px; font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    border: none; cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent; color: var(--blanco);
+    padding: 13px 30px; border-radius: 8px;
+    font-size: 14px; font-weight: 400;
+    font-family: 'DM Sans', sans-serif;
+    border: 0.5px solid var(--gris); cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--texto-muted); transform: translateY(-1px); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--carbon);
+    border-top: 0.5px solid var(--gris);
+    border-bottom: 0.5px solid var(--gris);
+    display: flex; justify-content: center;
+    gap: 0; overflow: hidden;
+  }
+  .stat-item {
+    flex: 1; max-width: 220px;
+    text-align: center;
+    padding: 1.75rem 1rem;
+    border-right: 0.5px solid var(--gris);
+    transition: background 0.2s;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-item:hover { background: rgba(255,107,0,0.04); }
+  .stat-num { font-size: 24px; font-weight: 500; color: var(--naranja); }
+  .stat-label { font-size: 11px; color: var(--texto-muted); margin-top: 4px; letter-spacing: 0.3px; }
+
+  /* ── SECCIONES ── */
+  .section { padding: 6rem 3rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-tag { font-size: 10px; letter-spacing: 3px; color: var(--naranja); margin-bottom: 0.75rem; }
+  .section-title { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 500; color: var(--blanco); margin-bottom: 0.75rem; }
+  .section-sub { font-size: 15px; color: var(--texto-muted); max-width: 480px; line-height: 1.7; margin-bottom: 3rem; }
+
+  /* ── SERVICIOS ── */
+  .services-section { background: var(--carbon); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--gris);
+    border: 0.5px solid var(--gris);
+    border-radius: 12px; overflow: hidden;
+  }
+  .service-card {
+    background: var(--carbon); padding: 2rem 1.75rem;
+    transition: background 0.2s;
+  }
+  .service-card:hover { background: #151515; }
+  .service-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: rgba(255,107,0,0.1);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .service-icon svg { width: 18px; height: 18px; stroke: var(--naranja); fill: none; stroke-width: 1.5; stroke-linecap: round; }
+  .service-card h3 { font-size: 14px; font-weight: 500; color: var(--blanco); margin-bottom: 8px; }
+  .service-card p { font-size: 13px; color: var(--texto-muted); line-height: 1.65; }
+
+  /* ── CÓMO FUNCIONA ── */
+  .how-section { background: var(--negro); }
+  .steps { max-width: 580px; }
+  .step { display: flex; gap: 1.5rem; padding: 1.75rem 0; border-bottom: 0.5px solid #141414; }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+    background: rgba(255,107,0,0.08);
+    border: 0.5px solid rgba(255,107,0,0.25);
+    color: var(--naranja); font-size: 12px; font-weight: 500;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+  }
+  .step h4 { font-size: 15px; font-weight: 500; color: var(--blanco); margin-bottom: 5px; }
+  .step p { font-size: 13px; color: var(--texto-muted); line-height: 1.65; }
+
+  /* ── DIFERENCIAL ── */
+  .diff-section { background: var(--carbon); }
+  .diff-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .diff-card {
+    background: var(--negro);
+    border: 0.5px solid var(--gris);
+    border-radius: 12px; padding: 1.75rem;
+    transition: border-color 0.2s;
+  }
+  .diff-card:hover { border-color: #333; }
+  .diff-card.featured { border-color: rgba(255,107,0,0.3); }
+  .diff-card-label { font-size: 10px; letter-spacing: 2px; color: var(--texto-muted); margin-bottom: 1rem; }
+  .diff-card.featured .diff-card-label { color: var(--naranja); }
+  .diff-card h3 { font-size: 16px; font-weight: 500; color: var(--blanco); margin-bottom: 0.5rem; }
+  .diff-card p { font-size: 13px; color: var(--texto-muted); line-height: 1.65; }
+  .diff-items { margin-top: 1.25rem; display: flex; flex-direction: column; gap: 8px; }
+  .diff-item { font-size: 12px; color: var(--texto-muted); display: flex; gap: 8px; }
+  .diff-item .arrow { color: var(--naranja); }
+  .diff-card.featured .diff-item .arrow { color: var(--dorado); }
+
+  /* ── PRICING ── */
+  .pricing-section { background: var(--negro); }
+  .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 600px; }
+  .price-card {
+    background: var(--carbon); border: 0.5px solid var(--gris);
+    border-radius: 12px; padding: 2rem;
+    transition: border-color 0.2s;
+  }
+  .price-card:hover { border-color: #333; }
+  .price-card.featured { border-color: rgba(255,107,0,0.35); }
+  .price-setup { font-size: 11px; letter-spacing: 1px; color: var(--texto-muted); margin-bottom: 0.5rem; }
+  .price-card.featured .price-setup { color: var(--naranja); }
+  .price-amount { font-size: 32px; font-weight: 500; color: var(--blanco); }
+  .price-period { font-size: 12px; color: var(--texto-muted); margin-bottom: 1.25rem; }
+  .price-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .price-features li { font-size: 13px; color: var(--texto-muted); display: flex; gap: 8px; align-items: flex-start; }
+  .price-features li span:first-child { color: var(--naranja); margin-top: 1px; }
+
+  /* ── TESTIMONIAL / PROMESA ── */
+  .promise-section { background: var(--carbon); }
+  .promise-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--gris); border-radius: 12px; overflow: hidden; }
+  .promise-item { background: var(--carbon); padding: 2rem 1.5rem; }
+  .promise-num { font-size: 28px; font-weight: 500; color: var(--naranja); margin-bottom: 0.5rem; }
+  .promise-title { font-size: 13px; font-weight: 500; color: var(--blanco); margin-bottom: 6px; }
+  .promise-text { font-size: 12px; color: var(--texto-muted); line-height: 1.6; }
+
+  /* ── CTA FINAL ── */
+  .cta-section {
+    background: var(--negro);
+    padding: 7rem 3rem;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, rgba(255,107,0,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-section h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; color: var(--blanco); margin-bottom: 1rem; }
+  .cta-section p { font-size: 15px; color: var(--texto-muted); margin-bottom: 2.5rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--carbon);
+    border-top: 0.5px solid var(--gris);
+    padding: 1.75rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-logo { display: flex; align-items: center; gap: 10px; }
+  .footer-logo-text { font-size: 14px; font-weight: 500; color: var(--blanco); letter-spacing: 4px; }
+  footer p { font-size: 11px; color: #333; }
+
+  /* ── LÍNEA DORADA ── */
+  .gold-line { width: 40px; height: 1px; background: var(--dorado); margin-bottom: 1.5rem; }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="nav-logo" href="#">
+    <svg class="logo-svg" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="26" cy="30" r="21" class="logo-track"/>
+      <circle cx="74" cy="30" r="21" class="logo-track"/>
+      <circle cx="26" cy="30" r="21" class="logo-ring"/>
+      <circle cx="74" cy="30" r="21" class="logo-ring"/>
+      <circle cx="26" cy="30" r="21" class="logo-fade-1"/>
+      <circle cx="74" cy="30" r="21" class="logo-fade-2"/>
+      <circle cx="74" cy="30" r="5" class="logo-dot"/>
+    </svg>
+    <span class="nav-logo-text">BOTTO</span>
+  </a>
+  <div class="nav-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#como">Cómo funciona</a>
+    <a href="#precios">Precios</a>
+  </div>
+  <button class="nav-cta">Hablemos</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-bg-glow"></div>
+
+  <div class="hero-logo-wrap">
+    <div class="hero-logo-icon">
+      <svg class="hero-logo-svg" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="26" cy="30" r="21" class="logo-track"/>
+        <circle cx="74" cy="30" r="21" class="logo-track"/>
+        <circle cx="26" cy="30" r="21" class="logo-ring"/>
+        <circle cx="74" cy="30" r="21" class="logo-ring"/>
+        <circle cx="26" cy="30" r="21" class="logo-fade-1"/>
+        <circle cx="74" cy="30" r="21" class="logo-fade-2"/>
+        <circle cx="74" cy="30" r="5" class="logo-dot"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="hero-badge">AUTOMATIZACIONES CON IA · BUENOS AIRES</div>
+
+  <h1>Tu negocio trabaja.<br><span class="accent">BOTTO</span> también.</h1>
+
+  <p class="hero-sub">Automatizamos la atención al cliente de cualquier negocio para que tu equipo se enfoque en lo que realmente importa.</p>
+
+  <div class="hero-btns">
+    <button class="btn-primary">Quiero una demo</button>
+    <button class="btn-secondary">Ver servicios</button>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">24/7</div>
+    <div class="stat-label">Atención 24/7</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">−80%</div>
+    <div class="stat-label">Consultas manuales</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">4 días</div>
+    <div class="stat-label">Para tener el bot activo</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">Gratis</div>
+    <div class="stat-label">Primer mes de prueba</div>
+  </div>
+</div>
+
+<!-- SERVICIOS -->
+<section class="section services-section" id="servicios">
+  <div class="section-inner">
+    <p class="section-tag reveal">SERVICIOS</p>
+    <h2 class="section-title reveal">Lo que BOTTO hace por vos</h2>
+    <p class="section-sub reveal">Bots inteligentes por WhatsApp que atienden, agendan y responden — sin que vos tengas que estar.</p>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
+        </div>
+        <h3>Agendado automático</h3>
+        <p>Los clientes reservan turnos sin llamarte. El bot controla disponibilidad y evita duplicados.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3>Atención al cliente</h3>
+        <p>Responde preguntas frecuentes, precios, horarios y ubicación de forma instantánea.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <h3>Recordatorios</h3>
+        <p>Envía confirmaciones y recordatorios de turno automáticamente. Cero ausencias.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <h3>Registro en tiempo real</h3>
+        <p>Todos los datos en Google Sheets. Ves todo desde donde estés, en cualquier momento.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+        </div>
+        <h3>WhatsApp nativo</h3>
+        <p>Tu número actual. Sin apps nuevas ni configuraciones complicadas para el cliente.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        </div>
+        <h3>Setup a medida</h3>
+        <p>Configurado para tu rubro. Barbería, restaurante, inmobiliaria — lo adaptamos a tu negocio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section class="section how-section" id="como">
+  <div class="section-inner">
+    <p class="section-tag reveal">PROCESO</p>
+    <h2 class="section-title reveal">Cómo funciona</h2>
+    <p class="section-sub reveal">Simple, rápido y sin vueltas.</p>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <div>
+          <h4>Coordinamos un encuentro</h4>
+          <p>Entendemos tu negocio: qué consultas recibís, cómo agendás, qué necesitás automatizar.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <div>
+          <h4>Armamos el bot</h4>
+          <p>En 4 días tenés una solución funcionando con tus precios, horarios y nombre.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <div>
+          <h4>Lo probás gratis un mes</h4>
+          <p>Sin costo. Si genera valor, seguimos. Si no, sin compromisos.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">4</div>
+        <div>
+          <h4>BOTTO trabaja, vos crecés</h4>
+          <p>Tu negocio automatizado. Nosotros lo mantenemos y actualizamos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAL -->
+<section class="section diff-section">
+  <div class="section-inner">
+    <p class="section-tag reveal">POR QUÉ BOTTO</p>
+    <h2 class="section-title reveal">No somos una app genérica</h2>
+    <p class="section-sub reveal">Hay un equipo detrás. Cada solución se construye a medida y el soporte es continuo.</p>
+    <div class="diff-grid reveal">
+      <div class="diff-card">
+        <div class="diff-card-label">DEV FREELANCE</div>
+        <h3>Caro y lento</h3>
+        <p>Tiempo de entrega de semanas, costo elevado y sin garantía de mantenimiento.</p>
+        <div class="diff-items">
+          <div class="diff-item"><span class="arrow">→</span>2–4 semanas de entrega</div>
+          <div class="diff-item"><span class="arrow">→</span>Sin soporte incluido</div>
+          <div class="diff-item"><span class="arrow">→</span>Costo prohibitivo</div>
+        </div>
+      </div>
+      <div class="diff-card featured">
+        <div class="diff-card-label">BOTTO</div>
+        <h3>Rápido y a medida</h3>
+        <p>4 días de entrega, personalización total y soporte continuo incluido.</p>
+        <div class="diff-items">
+          <div class="diff-item"><span class="arrow">→</span>4 días de entrega</div>
+          <div class="diff-item"><span class="arrow">→</span>Soporte incluido siempre</div>
+          <div class="diff-item"><span class="arrow">→</span>Primer mes sin costo</div>
+        </div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-card-label">HERRAMIENTA GENÉRICA</div>
+        <h3>Sin personalización</h3>
+        <p>Inmediato pero sin contexto. No entiende tu negocio ni tu cliente.</p>
+        <div class="diff-items">
+          <div class="diff-item"><span class="arrow">→</span>Respuestas genéricas</div>
+          <div class="diff-item"><span class="arrow">→</span>Sin soporte real</div>
+          <div class="diff-item"><span class="arrow">→</span>No escala con vos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section class="section pricing-section" id="precios">
+  <div class="section-inner">
+    <p class="section-tag reveal">PRECIOS</p>
+    <h2 class="section-title reveal">Claro y directo</h2>
+    <p class="section-sub reveal">Sin sorpresas. Sin letra chica. Sin compromiso el primer mes.</p>
+    <div class="pricing-grid reveal">
+      <div class="price-card">
+        <div class="price-setup">SETUP INICIAL</div>
+        <div class="price-amount">A consultar</div>
+        <div class="price-period">pago único</div>
+        <ul class="price-features">
+          <li><span>→</span>Bot configurado a medida</li>
+          <li><span>→</span>Integración WhatsApp</li>
+          <li><span>→</span>Google Sheets incluido</li>
+          <li><span>→</span>4 días de entrega</li>
+        </ul>
+      </div>
+      <div class="price-card featured">
+        <div class="price-setup">MANTENIMIENTO</div>
+        <div class="price-amount">A consultar</div>
+        <div class="price-period">por mes</div>
+        <ul class="price-features">
+          <li><span>→</span>Bot activo 24/7</li>
+          <li><span>→</span>Soporte y ajustes</li>
+          <li><span>→</span>Actualizaciones incluidas</li>
+          <li><span>→</span><strong style="color:var(--naranja)">Primer mes gratis</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMESA -->
+<section class="section promise-section">
+  <div class="section-inner">
+    <p class="section-tag reveal">NUESTRA PROMESA</p>
+    <h2 class="section-title reveal">Lo que BOTTO garantiza</h2>
+    <div class="gold-line reveal"></div>
+    <div class="promise-grid reveal">
+      <div class="promise-item">
+        <div class="promise-num">4 días</div>
+        <div class="promise-title">Entrega garantizada</div>
+        <div class="promise-text">Si acordamos esa fecha, se cumple. Sin excusas.</div>
+      </div>
+      <div class="promise-item">
+        <div class="promise-num">100%</div>
+        <div class="promise-title">A medida</div>
+        <div class="promise-text">Ningún bot de BOTTO es igual a otro. Es el tuyo.</div>
+      </div>
+      <div class="promise-item">
+        <div class="promise-num">Siempre</div>
+        <div class="promise-title">Soporte incluido</div>
+        <div class="promise-text">No quedás solo después del setup. BOTTO acompaña.</div>
+      </div>
+      <div class="promise-item">
+        <div class="promise-num">Total</div>
+        <div class="promise-title">Transparencia</div>
+        <div class="promise-text">Si algo no funciona, lo decimos. Sin vueltas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <h2 class="reveal">¿Querés verlo funcionar?</h2>
+  <p class="reveal">Te armamos una demo con tu negocio. Sin costo, sin compromiso.</p>
+  <button class="btn-primary reveal" style="font-size:15px;padding:15px 36px;">Pedir demo por WhatsApp</button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg width="28" height="17" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="26" cy="30" r="21" fill="none" stroke="#1a1a1a" stroke-width="7"/>
+      <circle cx="74" cy="30" r="21" fill="none" stroke="#1a1a1a" stroke-width="7"/>
+      <circle cx="26" cy="30" r="21" fill="none" stroke="#FF6B00" stroke-width="7"/>
+      <circle cx="74" cy="30" r="21" fill="none" stroke="#FF6B00" stroke-width="7"/>
+      <circle cx="74" cy="30" r="5" fill="#C9A84C"/>
+    </svg>
+    <span class="footer-logo-text">BOTTO</span>
+  </div>
+  <p>bottoauto.org · Buenos Aires, Argentina</p>
+  <p>© 2026 BOTTO</p>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

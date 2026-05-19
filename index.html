@@ -256,6 +256,83 @@
   .service-card h3 { font-size: 14px; font-weight: 500; color: var(--blanco); margin-bottom: 8px; }
   .service-card p { font-size: 13px; color: var(--texto-muted); line-height: 1.65; }
 
+  /* ── CHIP SECTION — NUEVA ANIMACIÓN DE SCROLL ── */
+  .chip-section {
+    padding: 6rem 3rem;
+    background: var(--carbon);
+    overflow: hidden;
+  }
+  .chip-container {
+    display: grid;
+    grid-template-columns: 520px 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .chip-wrap {
+    position: relative;
+    height: 520px;
+    width: 520px;
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .chip-wrap.animated {
+    transform: translateX(0);
+  }
+  #chipCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .chip-tag {
+    position: absolute; top: 1.2rem; left: 50%; transform: translateX(-50%);
+    font-size: 10px; color: var(--naranja); letter-spacing: 3px;
+    pointer-events: none; white-space: nowrap;
+  }
+
+  .features-panel {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+  }
+  .features-panel.animated {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .feature-item {
+    padding: 1.75rem 0;
+    border-bottom: 0.5px solid var(--gris);
+  }
+  .feature-item:last-child {
+    border-bottom: none;
+  }
+  .feature-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  .feature-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--naranja);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .feature-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--blanco);
+    letter-spacing: 0.5px;
+  }
+  .feature-sub {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.6;
+    margin-left: 20px;
+  }
+
   /* ── BOTTO ACTIVO ── */
   .active-bot-section {
     background: var(--negro);
@@ -449,70 +526,28 @@
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* ── CHIP 3D ── */
-  .chip-wrap {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 3rem;
-    position: relative;
-    height: 520px;
-  }
-  #chipCanvas {
-    width: 520px;
-    height: 520px;
-    display: block;
-    cursor: pointer;
-  }
-  .chip-tag {
-    position: absolute; top: 1.2rem; left: 50%; transform: translateX(-50%);
-    font-size: 10px; color: var(--naranja); letter-spacing: 3px;
-    pointer-events: none; white-space: nowrap;
-  }
-  .chip-hint {
-    position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
-    font-size: 13px; color: var(--naranja); letter-spacing: 2px;
-    pointer-events: none; white-space: nowrap;
-    animation: pulse 2s ease-in-out infinite;
-    padding: 8px 20px;
-    background: rgba(255,107,0,0.1);
-    border: 1px solid rgba(255,107,0,0.3);
-    border-radius: 100px;
-  }
-  .chip-hint::before {
-    content: '↻';
-    display: inline-block;
-    margin-right: 8px;
-    font-size: 16px;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
-    50% { opacity: 1; transform: translateX(-50%) scale(1.05); }
-  }
-  .chip-side-label {
-    position: absolute; bottom: 3.2rem; left: 50%; transform: translateX(-50%);
-    font-size: 12px; color: #555; letter-spacing: 1px;
-    pointer-events: none; transition: opacity 0.4s; white-space: nowrap;
-  }
-
-  /* ── RESPONSIVE ── */
+  /* ── RESPONSIVE MOBILE ── */
   @media (max-width: 768px) {
+    body {
+      font-size: 13px;
+    }
     nav {
       padding: 1rem 1.5rem;
     }
     .nav-links {
       display: none;
     }
-    .hero h1 {
-      font-size: 2.2rem;
-    }
     .hero {
       padding: 6rem 1.5rem 3rem;
     }
+    .hero h1 {
+      font-size: 2.2rem !important;
+    }
     .stats-bar {
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
     }
     .stat-item {
-      flex: 0 0 50%;
       border-right: none;
       border-bottom: 0.5px solid var(--gris);
     }
@@ -528,13 +563,21 @@
     .services-grid {
       grid-template-columns: 1fr;
     }
-    .chip-wrap {
-      height: 400px;
+    .chip-section {
+      padding: 4rem 1.5rem;
     }
-    #chipCanvas {
+    .chip-container {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .chip-wrap {
       width: 100%;
       max-width: 400px;
       height: 400px;
+      margin: 0 auto;
+    }
+    .features-panel {
+      max-width: 100%;
     }
     .active-bot-grid {
       grid-template-columns: 1fr;
@@ -654,18 +697,52 @@
   </div>
 </div>
 
-<!-- SERVICIOS -->
-<section class="section services-section" id="servicios">
+<!-- SERVICIOS CON CHIP -->
+<section class="chip-section" id="servicios">
   <div class="section-inner">
     <p class="section-tag reveal">SERVICIOS</p>
     <h2 class="section-title reveal">Lo que BOTTO hace por vos</h2>
     <p class="section-sub reveal">Bots inteligentes por WhatsApp que atienden, agendan y responden — sin que vos tengas que estar.</p>
-    <div class="chip-wrap">
+  </div>
+
+  <div class="chip-container" id="chipContainer">
+    <div class="chip-wrap" id="chipWrap">
       <canvas id="chipCanvas"></canvas>
       <div class="chip-tag">BOTTO · AI ENGINE</div>
-      <div class="chip-side-label" id="sideLabel">CARA FRONTAL</div>
-      <div class="chip-hint">CLICK PARA GIRAR</div>
     </div>
+    <div class="features-panel" id="featuresPanel">
+      <div class="feature-item">
+        <div class="feature-header">
+          <div class="feature-dot"></div>
+          <div class="feature-title">IA A MEDIDA</div>
+        </div>
+        <div class="feature-sub">Entrenada para tu negocio específico</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-header">
+          <div class="feature-dot"></div>
+          <div class="feature-title">PERSONALIZACIÓN</div>
+        </div>
+        <div class="feature-sub">Tu marca, tu identidad, tus reglas</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-header">
+          <div class="feature-dot"></div>
+          <div class="feature-title">SIMPLICIDAD</div>
+        </div>
+        <div class="feature-sub">Sin apps nuevas, sin configuraciones</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-header">
+          <div class="feature-dot"></div>
+          <div class="feature-title">AHORRA HORAS</div>
+        </div>
+        <div class="feature-sub">Atención automática las 24 horas</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-inner" style="margin-top:4rem;">
     <div class="services-grid reveal">
       <div class="service-card">
         <div class="service-icon">
@@ -961,13 +1038,28 @@
     });
   }, { threshold: 0.12 });
   reveals.forEach(el => observer.observe(el));
+
+  // Chip scroll animation
+  const chipObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        document.getElementById('chipWrap').classList.add('animated');
+        document.getElementById('featuresPanel').classList.add('animated');
+        chipObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  chipObserver.observe(document.getElementById('chipContainer'));
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 window.addEventListener('load', function () {
-  const W = 520, H = 520;
-  const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('chipCanvas'), antialias: true });
+  const canvas = document.getElementById('chipCanvas');
+  const W = canvas.offsetWidth;
+  const H = canvas.offsetHeight;
+
+  const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
   renderer.setSize(W, H);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.shadowMap.enabled = true;
@@ -997,7 +1089,6 @@ window.addEventListener('load', function () {
   const circuitMat  = new THREE.MeshStandardMaterial({ color: 0xFF6B00, metalness: 0.6,  roughness: 0.3, emissive: 0xFF6B00, emissiveIntensity: 0.2 });
   const darkMat     = new THREE.MeshStandardMaterial({ color: 0x0d0d14, metalness: 0.2,  roughness: 0.8 });
   const silverMat   = new THREE.MeshStandardMaterial({ color: 0x8899aa, metalness: 0.88, roughness: 0.22 });
-  const backPlateMat= new THREE.MeshStandardMaterial({ color: 0x080810, metalness: 0.4,  roughness: 0.5 });
 
   const chipGroup = new THREE.Group();
   scene.add(chipGroup);
@@ -1009,9 +1100,6 @@ window.addEventListener('load', function () {
   const bevelMat = new THREE.MeshStandardMaterial({ color: 0x1a1a22, metalness: 0.4, roughness: 0.7 });
   const bevel = new THREE.Mesh(new THREE.BoxGeometry(3.26, 3.26, 0.20), bevelMat);
   bevel.position.z = -0.02; chipGroup.add(bevel);
-
-  const backPlate = new THREE.Mesh(new THREE.BoxGeometry(3.18, 3.18, 0.01), backPlateMat);
-  backPlate.position.z = -0.12; chipGroup.add(backPlate);
 
   function addTrace(x1, y1, x2, y2, w) {
     w = w || 0.025;
@@ -1082,96 +1170,16 @@ window.addEventListener('load', function () {
   const particles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color:0xFF6B00, size:0.025, transparent:true, opacity:0.35 }));
   scene.add(particles);
 
-  const featureCanvas = document.createElement('canvas');
-  featureCanvas.width = 1024; featureCanvas.height = 1024;
-  const ctx2d = featureCanvas.getContext('2d');
-  const featureTex = new THREE.CanvasTexture(featureCanvas);
-  const featurePlane = new THREE.Mesh(
-    new THREE.PlaneGeometry(2.9, 2.9),
-    new THREE.MeshStandardMaterial({ map: featureTex, transparent: false, metalness: 0.0, roughness: 1.0 })
-  );
-  featurePlane.position.z = -0.13; featurePlane.rotation.y = Math.PI;
-  chipGroup.add(featurePlane);
-
-  const features = [
-    { title: 'IA A MEDIDA',     sub: 'Entrenada para tu negocio específico' },
-    { title: 'PERSONALIZACIÓN', sub: 'Tu marca, tu identidad, tus reglas'   },
-    { title: 'SIMPLICIDAD',     sub: 'Sin apps nuevas, sin configuraciones' },
-    { title: 'AHORRA HORAS',    sub: 'Atención automática las 24 horas'     },
-  ];
-
-  let circuitProgress = 0;
-  function drawFeatureCanvas(cp) {
-    ctx2d.clearRect(0,0,1024,1024);
-    ctx2d.fillStyle = '#080810'; ctx2d.fillRect(0,0,1024,1024);
-    const lines = [
-      [60,148,964,148],[60,902,964,902],[60,148,60,902],[964,148,964,902],
-      [88,385,964,385],[88,550,964,550],[88,715,964,715],
-    ];
-    lines.forEach((l,i) => {
-      const delay = i*0.1, p = Math.max(0, Math.min(1,(cp-delay)/0.3));
-      if (p<=0) return;
-      const isGold = i===2||i===3;
-      ctx2d.strokeStyle = isGold ? `rgba(201,168,76,${p*0.6})` : `rgba(255,107,0,${p*0.4})`;
-      ctx2d.shadowColor = isGold ? '#C9A84C' : '#FF6B00'; ctx2d.shadowBlur=4;
-      ctx2d.lineWidth = isGold ? 2 : 1.5;
-      const x1=l[0],y1=l[1],x2=l[2],y2=l[3], ex=x1+(x2-x1)*p, ey=y1+(y2-y1)*p;
-      ctx2d.beginPath(); ctx2d.moveTo(x1,y1); ctx2d.lineTo(ex,ey); ctx2d.stroke();
-    });
-    [[60,148],[964,148],[60,902],[964,902],[960,385],[960,550],[960,715]].forEach((v,i) => {
-      const p = Math.max(0, Math.min(1,(cp-i*0.08)/0.2));
-      if (p<=0) return;
-      ctx2d.fillStyle=`rgba(201,168,76,${p})`; ctx2d.shadowColor='#C9A84C'; ctx2d.shadowBlur=8;
-      ctx2d.beginPath(); ctx2d.arc(v[0],v[1],6,0,Math.PI*2); ctx2d.fill();
-    });
-    ctx2d.shadowBlur=0;
-    ctx2d.font='500 26px monospace'; ctx2d.fillStyle=`rgba(255,107,0,${cp})`;
-    ctx2d.fillText('BOTTO ENGINE · SPECS', 88, 110);
-    features.forEach((f,i) => {
-      const fp = Math.max(0, Math.min(1,(cp-i*0.18)/0.4));
-      const y = 230 + i*165;
-      ctx2d.fillStyle=`rgba(255,107,0,${fp*0.9})`; ctx2d.beginPath(); ctx2d.arc(88,y-10,8,0,Math.PI*2); ctx2d.fill();
-      ctx2d.font='bold 30px monospace'; ctx2d.fillStyle=`rgba(245,245,245,${fp})`; ctx2d.fillText(f.title,112,y);
-      ctx2d.font='400 20px monospace'; ctx2d.fillStyle=`rgba(136,136,153,${fp*0.85})`; ctx2d.fillText(f.sub,112,y+36);
-    });
-    ctx2d.font='400 18px monospace'; ctx2d.fillStyle=`rgba(201,168,76,${cp*0.5})`; ctx2d.fillText('bottoauto.org',88,950);
-    featureTex.needsUpdate = true;
-  }
-  drawFeatureCanvas(0);
-
-  let flipped=false, currentRotY=0, isFlipping=false;
-  const sideLabel = document.getElementById('sideLabel');
-
-  document.getElementById('chipCanvas').addEventListener('click', () => {
-    if (isFlipping) return;
-    isFlipping = true;
-    const flipTo = flipped ? 0 : Math.PI;
-    flipped = !flipped;
-    if (flipped) { circuitProgress = 0; }
-    const start=currentRotY, end=flipTo, duration=1000, startTime=performance.now();
-    sideLabel.style.opacity='0';
-    function doFlip(now) {
-      const elapsed=now-startTime, progress=Math.min(elapsed/duration,1);
-      const ease = progress<0.5 ? 4*progress*progress*progress : 1-Math.pow(-2*progress+2,3)/2;
-      currentRotY = start+(end-start)*ease;
-      chipGroup.rotation.y = currentRotY;
-      if (progress<1) { requestAnimationFrame(doFlip); }
-      else { isFlipping=false; sideLabel.textContent=flipped?'CARA TRASERA — CAPACIDADES':'CARA FRONTAL'; sideLabel.style.opacity='1'; }
-    }
-    requestAnimationFrame(doFlip);
-  });
-
   let t = 0;
   (function animate() {
     requestAnimationFrame(animate);
     t += 0.01;
-    if (!isFlipping) { chipGroup.rotation.y=currentRotY+Math.sin(t*0.3)*0.04; chipGroup.rotation.x=Math.sin(t*0.2)*0.03; }
+    chipGroup.rotation.y = Math.sin(t*0.3)*0.04;
+    chipGroup.rotation.x = Math.sin(t*0.2)*0.03;
     chipGroup.position.y = Math.sin(t*0.5)*0.08;
     orangeLight.intensity = 2.0+Math.sin(t*1.2)*0.4;
     goldLight.intensity   = 1.6+Math.cos(t*0.8)*0.3;
     particles.rotation.z += 0.0003;
-    if (flipped && !isFlipping) { circuitProgress=Math.min(1,circuitProgress+0.018); drawFeatureCanvas(circuitProgress); }
-    else if (!flipped && circuitProgress>0) { circuitProgress=0; drawFeatureCanvas(0); }
     renderer.render(scene, camera);
   })();
 });

@@ -157,8 +157,22 @@
   .hero-sub {
     font-size: clamp(1rem, 2vw, 1.15rem);
     color: var(--texto-muted); max-width: 480px;
-    line-height: 1.7; margin-bottom: 2.5rem;
+    line-height: 1.7; margin-bottom: 1.5rem;
     animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-trust-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(201,168,76,0.08);
+    border: 0.5px solid rgba(201,168,76,0.25);
+    padding: 8px 16px; border-radius: 100px;
+    font-size: 12px; color: var(--dorado);
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s 0.35s ease both;
+  }
+  .hero-trust-badge svg {
+    width: 16px; height: 16px;
+    fill: var(--dorado);
   }
 
   .hero-btns {
@@ -196,9 +210,10 @@
     border-bottom: 0.5px solid var(--gris);
     display: flex; justify-content: center;
     gap: 0; overflow: hidden;
+    flex-wrap: wrap;
   }
   .stat-item {
-    flex: 1; max-width: 220px;
+    flex: 1; min-width: 180px;
     text-align: center;
     padding: 1.75rem 1rem;
     border-right: 0.5px solid var(--gris);
@@ -208,6 +223,7 @@
   .stat-item:hover { background: rgba(255,107,0,0.04); }
   .stat-num { font-size: 24px; font-weight: 500; color: var(--naranja); }
   .stat-label { font-size: 11px; color: var(--texto-muted); margin-top: 4px; letter-spacing: 0.3px; }
+  .stat-source { font-size: 9px; color: #333; margin-top: 2px; }
 
   /* ── SECCIONES ── */
   .section { padding: 6rem 3rem; }
@@ -240,8 +256,50 @@
   .service-card h3 { font-size: 14px; font-weight: 500; color: var(--blanco); margin-bottom: 8px; }
   .service-card p { font-size: 13px; color: var(--texto-muted); line-height: 1.65; }
 
+  /* ── BOTTO ACTIVO ── */
+  .active-bot-section {
+    background: var(--negro);
+    padding: 6rem 3rem;
+  }
+  .active-bot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .chat-mockup {
+    background: var(--carbon);
+    border: 0.5px solid var(--gris);
+    border-radius: 16px;
+    padding: 1.5rem;
+    max-width: 380px;
+  }
+  .chat-bubble {
+    background: rgba(255,107,0,0.1);
+    border: 0.5px solid rgba(255,107,0,0.25);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--blanco);
+  }
+  .chat-bubble.user {
+    background: rgba(201,168,76,0.1);
+    border-color: rgba(201,168,76,0.25);
+    margin-left: auto;
+    max-width: 70%;
+  }
+  .chat-time {
+    font-size: 10px;
+    color: #333;
+    margin-top: 4px;
+  }
+
   /* ── CÓMO FUNCIONA ── */
-  .how-section { background: var(--negro); }
+  .how-section { background: var(--carbon); }
   .steps { max-width: 580px; }
   .step { display: flex; gap: 1.5rem; padding: 1.75rem 0; border-bottom: 0.5px solid #141414; }
   .step:last-child { border-bottom: none; }
@@ -257,10 +315,20 @@
   .step p { font-size: 13px; color: var(--texto-muted); line-height: 1.65; }
 
   /* ── DIFERENCIAL ── */
-  .diff-section { background: var(--carbon); }
+  .diff-section { background: var(--negro); }
+  .diff-disclaimer {
+    font-size: 11px;
+    color: #444;
+    margin-bottom: 2rem;
+    padding: 8px 14px;
+    background: rgba(255,107,0,0.03);
+    border-left: 2px solid rgba(255,107,0,0.2);
+    border-radius: 4px;
+    max-width: 500px;
+  }
   .diff-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .diff-card {
-    background: var(--negro);
+    background: var(--carbon);
     border: 0.5px solid var(--gris);
     border-radius: 12px; padding: 1.75rem;
     transition: border-color 0.2s;
@@ -277,10 +345,10 @@
   .diff-card.featured .diff-item .arrow { color: var(--dorado); }
 
   /* ── PRICING ── */
-  .pricing-section { background: var(--negro); }
+  .pricing-section { background: var(--carbon); }
   .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 600px; }
   .price-card {
-    background: var(--carbon); border: 0.5px solid var(--gris);
+    background: var(--negro); border: 0.5px solid var(--gris);
     border-radius: 12px; padding: 2rem;
     transition: border-color 0.2s;
   }
@@ -295,7 +363,7 @@
   .price-features li span:first-child { color: var(--naranja); margin-top: 1px; }
 
   /* ── TESTIMONIAL / PROMESA ── */
-  .promise-section { background: var(--carbon); }
+  .promise-section { background: var(--negro); }
   .promise-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--gris); border-radius: 12px; overflow: hidden; }
   .promise-item { background: var(--carbon); padding: 2rem 1.5rem; }
   .promise-num { font-size: 28px; font-weight: 500; color: var(--naranja); margin-bottom: 0.5rem; }
@@ -304,7 +372,7 @@
 
   /* ── CTA FINAL ── */
   .cta-section {
-    background: var(--negro);
+    background: var(--carbon);
     padding: 7rem 3rem;
     text-align: center;
     position: relative; overflow: hidden;
@@ -314,19 +382,65 @@
     background: radial-gradient(ellipse at center, rgba(255,107,0,0.05) 0%, transparent 70%);
     pointer-events: none;
   }
+  .cta-stat-block {
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    padding: 2.5rem 2rem;
+    background: var(--negro);
+    border: 0.5px solid var(--gris);
+    border-radius: 16px;
+  }
+  .cta-stat-num {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 500;
+    color: var(--naranja);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .cta-stat-label {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--blanco);
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+  .cta-stat-source {
+    font-size: 11px;
+    color: #444;
+    margin-top: 1rem;
+  }
   .cta-section h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; color: var(--blanco); margin-bottom: 1rem; }
   .cta-section p { font-size: 15px; color: var(--texto-muted); margin-bottom: 2.5rem; }
+  .cta-terms {
+    font-size: 12px;
+    color: #444;
+    max-width: 500px;
+    margin: 1.5rem auto 0;
+    line-height: 1.6;
+  }
 
   /* ── FOOTER ── */
   footer {
-    background: var(--carbon);
+    background: var(--negro);
     border-top: 0.5px solid var(--gris);
     padding: 1.75rem 3rem;
     display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
   .footer-logo { display: flex; align-items: center; gap: 10px; }
   .footer-logo-text { font-size: 14px; font-weight: 500; color: var(--blanco); letter-spacing: 4px; }
   footer p { font-size: 11px; color: #333; }
+  .footer-contact {
+    font-size: 11px;
+    color: #555;
+  }
+  .footer-contact a {
+    color: var(--naranja);
+    text-decoration: none;
+  }
+  .footer-contact a:hover {
+    text-decoration: underline;
+  }
 
   /* ── LÍNEA DORADA ── */
   .gold-line { width: 40px; height: 1px; background: var(--dorado); margin-bottom: 1.5rem; }
@@ -356,13 +470,102 @@
   }
   .chip-hint {
     position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
-    font-size: 11px; color: #333; letter-spacing: 2px;
+    font-size: 13px; color: var(--naranja); letter-spacing: 2px;
     pointer-events: none; white-space: nowrap;
+    animation: pulse 2s ease-in-out infinite;
+    padding: 8px 20px;
+    background: rgba(255,107,0,0.1);
+    border: 1px solid rgba(255,107,0,0.3);
+    border-radius: 100px;
+  }
+  .chip-hint::before {
+    content: '↻';
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 16px;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+    50% { opacity: 1; transform: translateX(-50%) scale(1.05); }
   }
   .chip-side-label {
     position: absolute; bottom: 3.2rem; left: 50%; transform: translateX(-50%);
     font-size: 12px; color: #555; letter-spacing: 1px;
     pointer-events: none; transition: opacity 0.4s; white-space: nowrap;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav {
+      padding: 1rem 1.5rem;
+    }
+    .nav-links {
+      display: none;
+    }
+    .hero h1 {
+      font-size: 2.2rem;
+    }
+    .hero {
+      padding: 6rem 1.5rem 3rem;
+    }
+    .stats-bar {
+      flex-wrap: wrap;
+    }
+    .stat-item {
+      flex: 0 0 50%;
+      border-right: none;
+      border-bottom: 0.5px solid var(--gris);
+    }
+    .stat-item:nth-child(2n) {
+      border-left: 0.5px solid var(--gris);
+    }
+    .stat-item:nth-last-child(-n+2) {
+      border-bottom: none;
+    }
+    .section {
+      padding: 4rem 1.5rem;
+    }
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+    .chip-wrap {
+      height: 400px;
+    }
+    #chipCanvas {
+      width: 100%;
+      max-width: 400px;
+      height: 400px;
+    }
+    .active-bot-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .chat-mockup {
+      max-width: 100%;
+    }
+    .diff-grid {
+      grid-template-columns: 1fr;
+    }
+    .pricing-grid {
+      grid-template-columns: 1fr;
+    }
+    .promise-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .hero-btns {
+      flex-direction: column;
+      width: 100%;
+      max-width: 300px;
+    }
+    .btn-primary, .btn-secondary {
+      width: 100%;
+    }
+    footer {
+      flex-direction: column;
+      text-align: center;
+      gap: 0.5rem;
+    }
   }
 </style>
 </head>
@@ -414,6 +617,14 @@
 
   <p class="hero-sub">Automatizamos la atención al cliente de cualquier negocio para que tu equipo se enfoque en lo que realmente importa.</p>
 
+  <div class="hero-trust-badge">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 11l3 3L22 4"/>
+      <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+    </svg>
+    <span>87% de satisfacción en atención automatizada</span>
+  </div>
+
   <div class="hero-btns">
     <button class="btn-primary">Quiero una demo</button>
     <button class="btn-secondary">Ver servicios</button>
@@ -423,20 +634,23 @@
 <!-- STATS -->
 <div class="stats-bar">
   <div class="stat-item">
-    <div class="stat-num">24/7</div>
-    <div class="stat-label">Atención 24/7</div>
+    <div class="stat-num">82%</div>
+    <div class="stat-label">Prefiere chatbot que esperar</div>
+    <div class="stat-source">Dante AI, 2026</div>
   </div>
   <div class="stat-item">
     <div class="stat-num">−80%</div>
     <div class="stat-label">Consultas manuales</div>
+    <div class="stat-source">Promedio clientes BOTTO</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">87%</div>
+    <div class="stat-label">Satisfacción global con bots</div>
+    <div class="stat-source">Zendesk, 2026</div>
   </div>
   <div class="stat-item">
     <div class="stat-num">4 días</div>
     <div class="stat-label">Para tener el bot activo</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num">Gratis</div>
-    <div class="stat-label">Primer mes de prueba</div>
   </div>
 </div>
 
@@ -499,6 +713,58 @@
   </div>
 </section>
 
+<!-- BOTTO ACTIVO -->
+<section class="active-bot-section">
+  <div class="section-inner">
+    <p class="section-tag reveal">MODO ACTIVO</p>
+    <h2 class="section-title reveal">BOTTO no solo atiende. También vende.</h2>
+    <p class="section-sub reveal">La diferencia entre un bot que responde y un bot que genera ventas.</p>
+    <div class="active-bot-grid reveal">
+      <div>
+        <div class="chat-mockup">
+          <div class="chat-bubble">
+            ¡Hola! Este viernes 20% de descuento en corte + barba. ¿Te reservo un turno?
+            <div class="chat-time">BOTTO · 09:15</div>
+          </div>
+          <div class="chat-bubble user">
+            Dale, sí. El viernes a las 18hs
+            <div class="chat-time">09:17</div>
+          </div>
+          <div class="chat-bubble">
+            ✅ Turno confirmado para el viernes 23/5 a las 18:00. ¡Te esperamos!
+            <div class="chat-time">BOTTO · 09:17</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="gold-line"></div>
+        <h3 style="font-size:1.4rem; font-weight:500; margin-bottom:1rem; color:var(--blanco);">Bot receptivo vs. bot activo</h3>
+        <p style="font-size:14px; color:var(--texto-muted); line-height:1.7; margin-bottom:1.5rem;">
+          La mayoría de los bots solo responden cuando el cliente pregunta. BOTTO puede <strong style="color:var(--naranja);">iniciar conversaciones</strong>, enviar promociones, descuentos y recordar turnos de forma proactiva.
+        </p>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="display:flex; gap:10px; font-size:13px; color:var(--texto-muted);">
+            <span style="color:var(--naranja);">→</span>
+            <span>Envío de promociones automáticas</span>
+          </div>
+          <div style="display:flex; gap:10px; font-size:13px; color:var(--texto-muted);">
+            <span style="color:var(--naranja);">→</span>
+            <span>Recordatorios de turnos 24hs antes</span>
+          </div>
+          <div style="display:flex; gap:10px; font-size:13px; color:var(--texto-muted);">
+            <span style="color:var(--naranja);">→</span>
+            <span>Recuperación de clientes inactivos</span>
+          </div>
+          <div style="display:flex; gap:10px; font-size:13px; color:var(--texto-muted);">
+            <span style="color:var(--naranja);">→</span>
+            <span>Generación de ventas sin intervención humana</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CÓMO FUNCIONA -->
 <section class="section how-section" id="como">
   <div class="section-inner">
@@ -517,7 +783,7 @@
         <div class="step-num">2</div>
         <div>
           <h4>Armamos el bot</h4>
-          <p>En 4 días tenés una solución funcionando con tus precios, horarios y nombre.</p>
+          <p>Configuramos el bot con todo lo que necesita: nombre del negocio, horarios de atención, servicios, precios, dirección, respuestas frecuentes y el tono que mejor representa tu marca.</p>
         </div>
       </div>
       <div class="step reveal">
@@ -544,9 +810,12 @@
     <p class="section-tag reveal">POR QUÉ BOTTO</p>
     <h2 class="section-title reveal">No somos una app genérica</h2>
     <p class="section-sub reveal">Hay un equipo detrás. Cada solución se construye a medida y el soporte es continuo.</p>
+    <div class="diff-disclaimer reveal">
+      Comparamos BOTTO con otras alternativas del mercado para ayudarte a tomar la mejor decisión.
+    </div>
     <div class="diff-grid reveal">
       <div class="diff-card">
-        <div class="diff-card-label">DEV FREELANCE</div>
+        <div class="diff-card-label">DESARROLLADOR FREELANCE</div>
         <h3>Caro y lento</h3>
         <p>Tiempo de entrega de semanas, costo elevado y sin garantía de mantenimiento.</p>
         <div class="diff-items">
@@ -646,9 +915,15 @@
 <!-- CTA FINAL -->
 <section class="cta-section">
   <div class="cta-bg"></div>
+  <div class="cta-stat-block reveal">
+    <div class="cta-stat-num">16×</div>
+    <div class="cta-stat-label">Crecimiento en adopción de chatbots entre 2020 y 2025</div>
+    <div class="cta-stat-source">Zendesk · Una de las curvas de adopción más rápidas en tecnología empresarial</div>
+  </div>
   <h2 class="reveal">¿Querés verlo funcionar?</h2>
   <p class="reveal">Te armamos una demo con tu negocio. Sin costo, sin compromiso.</p>
   <button class="btn-primary reveal" style="font-size:15px;padding:15px 36px;">Pedir demo por WhatsApp</button>
+  <p class="cta-terms reveal">Una vez que acordemos los detalles, te enviamos por mail los términos y condiciones del servicio para tu revisión.</p>
 </section>
 
 <!-- FOOTER -->
@@ -663,6 +938,7 @@
     </svg>
     <span class="footer-logo-text">BOTTO</span>
   </div>
+  <p class="footer-contact">Contacto: <a href="mailto:hola@bottoauto.org">hola@bottoauto.org</a></p>
   <p>bottoauto.org · Buenos Aires, Argentina</p>
   <p>© 2026 BOTTO</p>
 </footer>

@@ -274,10 +274,7 @@
     height: 520px;
     width: 520px;
     transform: translateX(0);
-    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .chip-wrap.animated {
-    transform: translateX(-120px);
+    transition: transform 0.1s linear;
   }
   #chipCanvas {
     width: 100%;
@@ -293,12 +290,7 @@
   .features-panel {
     opacity: 0;
     transform: translateX(40px);
-    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s,
-                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
-  }
-  .features-panel.animated {
-    opacity: 1;
-    transform: translateX(0);
+    transition: opacity 0.1s linear, transform 0.1s linear;
   }
   .feature-item {
     padding: 1.75rem 0;
@@ -583,12 +575,12 @@
       max-width: 400px;
       height: 400px;
       margin: 0 auto;
-    }
-    .chip-wrap.animated {
-      transform: translateX(0);
+      transform: translateX(0) !important;
     }
     .features-panel {
       max-width: 100%;
+      opacity: 1 !important;
+      transform: translateX(0) !important;
     }
     .active-bot-grid {
       grid-template-columns: 1fr;
@@ -1056,22 +1048,51 @@
   }, { threshold: 0.12 });
   reveals.forEach(el => observer.observe(el));
 
-  // Chip smooth animation con IntersectionObserver
-  const chipContainer = document.getElementById('chipContainer');
-  const chipWrap = document.getElementById('chipWrap');
-  const featuresPanel = document.getElementById('featuresPanel');
+  // Chip scroll animation con listener directo
+  const isMobile = window.innerWidth <= 768;
 
-  const chipObserver = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        chipWrap.classList.add('animated');
-        featuresPanel.classList.add('animated');
-        chipObserver.unobserve(e.target);
+  if (!isMobile) {
+    const chipSection = document.querySelector('.chip-section');
+    const chipWrap = document.getElementById('chipWrap');
+    const featuresPanel = document.getElementById('featuresPanel');
+
+    function updateChipAnimation() {
+      if (!chipSection) return;
+
+      const rect = chipSection.getBoundingClientRect();
+      const sectionTop = rect.top;
+      const sectionHeight = rect.height;
+      const viewportHeight = window.innerHeight;
+
+      // Calcular progreso: empieza cuando la sección entra al viewport
+      const scrollStart = viewportHeight - sectionTop;
+      const scrollRange = viewportHeight * 0.7;
+      const progress = Math.max(0, Math.min(1, scrollStart / scrollRange));
+
+      if (chipWrap) {
+        chipWrap.style.transform = `translateX(${-120 * progress}px)`;
+      }
+
+      if (featuresPanel) {
+        featuresPanel.style.opacity = progress;
+        featuresPanel.style.transform = `translateX(${40 - 40 * progress}px)`;
+      }
+    }
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateChipAnimation();
+          ticking = false;
+        });
+        ticking = true;
       }
     });
-  }, { threshold: 0.3 });
 
-  chipObserver.observe(chipContainer);
+    // Ejecutar una vez al cargar
+    updateChipAnimation();
+  }
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>

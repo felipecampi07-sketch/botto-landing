@@ -256,20 +256,10 @@
   .service-card h3 { font-size: 14px; font-weight: 500; color: var(--blanco); margin-bottom: 8px; }
   .service-card p { font-size: 13px; color: var(--texto-muted); line-height: 1.65; }
 
-  /* ── CHIP SECTION — SCROLL ANIMATION ESTILO APPLE ── */
-  .chip-scroll-wrapper {
-    height: 200vh;
+  /* ── CHIP SECTION — SMOOTH SCROLL ANIMATION ── */
+  .chip-section {
     background: var(--carbon);
-    position: relative;
-  }
-  .chip-scroll-inner {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    padding: 6rem 3rem;
   }
   .chip-container {
     display: grid;
@@ -278,13 +268,16 @@
     align-items: center;
     max-width: 1100px;
     margin: 0 auto;
-    padding: 0 3rem;
   }
   .chip-wrap {
     position: relative;
     height: 520px;
     width: 520px;
-    will-change: transform;
+    transform: translateX(0);
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .chip-wrap.animated {
+    transform: translateX(-120px);
   }
   #chipCanvas {
     width: 100%;
@@ -298,7 +291,14 @@
   }
 
   .features-panel {
-    will-change: opacity, transform;
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s,
+                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+  }
+  .features-panel.animated {
+    opacity: 1;
+    transform: translateX(0);
   }
   .feature-item {
     padding: 1.75rem 0;
@@ -334,7 +334,7 @@
     margin-left: 20px;
   }
   .chip-section-header {
-    padding: 6rem 3rem 0;
+    padding: 6rem 3rem 2rem;
     background: var(--carbon);
   }
 
@@ -568,27 +568,24 @@
     .services-grid {
       grid-template-columns: 1fr;
     }
-    .chip-scroll-wrapper {
-      height: auto !important;
-    }
-    .chip-scroll-inner {
-      position: relative !important;
-      height: auto !important;
-      padding: 4rem 1.5rem;
-    }
     .chip-section-header {
       padding: 4rem 1.5rem 2rem;
+    }
+    .chip-section {
+      padding: 4rem 1.5rem;
     }
     .chip-container {
       grid-template-columns: 1fr;
       gap: 2rem;
-      padding: 0;
     }
     .chip-wrap {
       width: 100%;
       max-width: 400px;
       height: 400px;
       margin: 0 auto;
+    }
+    .chip-wrap.animated {
+      transform: translateX(0);
     }
     .features-panel {
       max-width: 100%;
@@ -720,47 +717,45 @@
   </div>
 </div>
 
-<!-- CHIP CON SCROLL ANIMATION ESTILO APPLE -->
-<div class="chip-scroll-wrapper" id="chipScrollWrapper">
-  <div class="chip-scroll-inner">
-    <div class="chip-container">
-      <div class="chip-wrap" id="chipWrap">
-        <canvas id="chipCanvas"></canvas>
-        <div class="chip-tag">BOTTO · AI ENGINE</div>
+<!-- CHIP CON SMOOTH ANIMATION -->
+<section class="chip-section">
+  <div class="chip-container" id="chipContainer">
+    <div class="chip-wrap" id="chipWrap">
+      <canvas id="chipCanvas"></canvas>
+      <div class="chip-tag">BOTTO · AI ENGINE</div>
+    </div>
+    <div class="features-panel" id="featuresPanel">
+      <div class="feature-item">
+        <div class="feature-header">
+          <div class="feature-dot"></div>
+          <div class="feature-title">IA A MEDIDA</div>
+        </div>
+        <div class="feature-sub">Entrenada para tu negocio específico</div>
       </div>
-      <div class="features-panel" id="featuresPanel">
-        <div class="feature-item">
-          <div class="feature-header">
-            <div class="feature-dot"></div>
-            <div class="feature-title">IA A MEDIDA</div>
-          </div>
-          <div class="feature-sub">Entrenada para tu negocio específico</div>
+      <div class="feature-item">
+        <div class="feature-header">
+          <div class="feature-dot"></div>
+          <div class="feature-title">PERSONALIZACIÓN</div>
         </div>
-        <div class="feature-item">
-          <div class="feature-header">
-            <div class="feature-dot"></div>
-            <div class="feature-title">PERSONALIZACIÓN</div>
-          </div>
-          <div class="feature-sub">Tu marca, tu identidad, tus reglas</div>
+        <div class="feature-sub">Tu marca, tu identidad, tus reglas</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-header">
+          <div class="feature-dot"></div>
+          <div class="feature-title">SIMPLICIDAD</div>
         </div>
-        <div class="feature-item">
-          <div class="feature-header">
-            <div class="feature-dot"></div>
-            <div class="feature-title">SIMPLICIDAD</div>
-          </div>
-          <div class="feature-sub">Sin apps nuevas, sin configuraciones</div>
+        <div class="feature-sub">Sin apps nuevas, sin configuraciones</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-header">
+          <div class="feature-dot"></div>
+          <div class="feature-title">AHORRA HORAS</div>
         </div>
-        <div class="feature-item">
-          <div class="feature-header">
-            <div class="feature-dot"></div>
-            <div class="feature-title">AHORRA HORAS</div>
-          </div>
-          <div class="feature-sub">Atención automática las 24 horas</div>
-        </div>
+        <div class="feature-sub">Atención automática las 24 horas</div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- GRID DE SERVICIOS -->
 <section class="section services-section" style="padding-top:0;">
@@ -1061,51 +1056,22 @@
   }, { threshold: 0.12 });
   reveals.forEach(el => observer.observe(el));
 
-  // Chip scroll animation estilo Apple
-  const isMobile = window.innerWidth <= 768;
+  // Chip smooth animation con IntersectionObserver
+  const chipContainer = document.getElementById('chipContainer');
+  const chipWrap = document.getElementById('chipWrap');
+  const featuresPanel = document.getElementById('featuresPanel');
 
-  if (!isMobile) {
-    const wrapper = document.getElementById('chipScrollWrapper');
-    const chipWrap = document.getElementById('chipWrap');
-    const featuresPanel = document.getElementById('featuresPanel');
-
-    function easeInOutQuad(t) {
-      return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-    }
-
-    let ticking = false;
-
-    function updateChipAnimation() {
-      const rect = wrapper.getBoundingClientRect();
-      const wrapperHeight = wrapper.offsetHeight;
-      const viewportHeight = window.innerHeight;
-
-      const scrollStart = -rect.top;
-      const scrollEnd = wrapperHeight - viewportHeight;
-      const scrollProgress = Math.max(0, Math.min(1, scrollStart / scrollEnd));
-
-      const easedProgress = easeInOutQuad(scrollProgress);
-
-      const chipTranslateX = easedProgress * -120;
-      chipWrap.style.transform = `translateX(${chipTranslateX}px)`;
-
-      const featuresOpacity = easedProgress;
-      const featuresTranslateX = (1 - easedProgress) * 40;
-      featuresPanel.style.opacity = featuresOpacity;
-      featuresPanel.style.transform = `translateX(${featuresTranslateX}px)`;
-
-      ticking = false;
-    }
-
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(updateChipAnimation);
-        ticking = true;
+  const chipObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        chipWrap.classList.add('animated');
+        featuresPanel.classList.add('animated');
+        chipObserver.unobserve(e.target);
       }
     });
+  }, { threshold: 0.3 });
 
-    updateChipAnimation();
-  }
+  chipObserver.observe(chipContainer);
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>

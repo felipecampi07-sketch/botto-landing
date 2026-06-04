@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidad — BOTTO</title>
+<meta name="description" content="Política de privacidad de BOTTO Automatizaciones — qué datos recopilamos y cómo los usamos.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --negro: #0A0A0A;
+    --naranja: #FF6B00;
+    --dorado: #C9A84C;
+    --carbon: #111111;
+    --gris: #1E1E1E;
+    --blanco: #F5F5F5;
+    --texto-muted: #555555;
+    --texto-dim: #333333;
+    --texto-body: #AAAAAA;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--negro);
+    color: var(--blanco);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 3rem;
+    background: rgba(10,10,10,0.92);
+    border-bottom: 0.5px solid var(--gris);
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+  .nav-logo-text {
+    font-size: 18px; font-weight: 500; color: var(--blanco);
+    letter-spacing: 5px;
+  }
+  .nav-links { display: flex; gap: 2.5rem; }
+  .nav-links a {
+    font-size: 13px; color: var(--texto-muted);
+    text-decoration: none; letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--blanco); }
+  .nav-cta {
+    background: var(--naranja); color: #fff;
+    border: none; padding: 9px 22px;
+    border-radius: 7px; font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500; cursor: pointer;
+    transition: opacity 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .nav-cta:hover { opacity: 0.88; }
+
+  .logo-svg { width: 40px; height: 24px; }
+  .logo-ring { fill: none; stroke: var(--naranja); stroke-width: 7; }
+  .logo-track { fill: none; stroke: #1a1a1a; stroke-width: 7; }
+  .logo-fade-1 {
+    fill: none; stroke: var(--dorado); stroke-width: 4;
+    stroke-dasharray: 60 73;
+    animation: spin1 4s linear infinite;
+    transform-origin: 26px 30px;
+  }
+  .logo-fade-2 {
+    fill: none; stroke: var(--dorado); stroke-width: 4;
+    stroke-dasharray: 60 73;
+    animation: spin2 4s linear infinite;
+    transform-origin: 74px 30px;
+  }
+  .logo-dot { fill: var(--dorado); animation: breathe 5s ease-in-out infinite; }
+
+  @keyframes spin1 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes spin2 { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+  @keyframes breathe { 0%,100%{r:5;} 50%{r:7;} }
+
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 9rem 2rem 5rem;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--dorado);
+    border: 1px solid var(--gris);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 500;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+  }
+  h1 .accent { color: var(--naranja); }
+
+  .updated {
+    font-size: 13px;
+    color: var(--texto-muted);
+    margin-bottom: 3rem;
+  }
+
+  .gold-line { width: 40px; height: 1px; background: var(--dorado); margin: 2.5rem 0 1.25rem; }
+
+  h2 {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--blanco);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.3px;
+  }
+
+  p, li {
+    font-size: 15px;
+    color: var(--texto-body);
+    margin-bottom: 0.9rem;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  ul li {
+    position: relative;
+    padding-left: 1.4rem;
+    margin-bottom: 0.55rem;
+  }
+  ul li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 11px;
+    width: 6px; height: 1px;
+    background: var(--naranja);
+  }
+
+  a.inline {
+    color: var(--naranja);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,107,0,0.3);
+    transition: border-color 0.2s;
+  }
+  a.inline:hover { border-bottom-color: var(--naranja); }
+
+  strong { color: var(--blanco); font-weight: 500; }
+
+  .back-home {
+    display: inline-block;
+    margin-top: 3rem;
+    font-size: 13px;
+    color: var(--texto-muted);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  .back-home:hover { color: var(--naranja); }
+
+  footer {
+    background: var(--negro);
+    border-top: 0.5px solid var(--gris);
+    padding: 1.75rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-logo { display: flex; align-items: center; gap: 10px; }
+  .footer-logo-text { font-size: 14px; font-weight: 500; color: var(--blanco); letter-spacing: 4px; }
+  footer p { font-size: 11px; color: #333; margin-bottom: 0; }
+  .footer-contact { font-size: 11px; color: #555; }
+  .footer-contact a { color: var(--naranja); text-decoration: none; }
+  .footer-contact a:hover { text-decoration: underline; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    main { padding: 7rem 1.5rem 4rem; }
+    footer { padding: 1.5rem; flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">
+    <svg class="logo-svg" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="26" cy="30" r="21" class="logo-track"/>
+      <circle cx="74" cy="30" r="21" class="logo-track"/>
+      <circle cx="26" cy="30" r="21" class="logo-ring"/>
+      <circle cx="74" cy="30" r="21" class="logo-ring"/>
+      <circle cx="26" cy="30" r="21" class="logo-fade-1"/>
+      <circle cx="74" cy="30" r="21" class="logo-fade-2"/>
+      <circle cx="74" cy="30" r="5" class="logo-dot"/>
+    </svg>
+    <span class="nav-logo-text">BOTTO</span>
+  </a>
+  <div class="nav-links">
+    <a href="/#servicios">Servicios</a>
+    <a href="/#como">Cómo funciona</a>
+    <a href="/#precios">Precios</a>
+  </div>
+  <a href="https://wa.me/5491165383741?text=Hola%20BOTTO%2C%20quiero%20una%20demo" target="_blank" rel="noopener" class="nav-cta">Hablemos</a>
+</nav>
+
+<main>
+  <div class="badge">LEGAL</div>
+  <h1>Política de <span class="accent">Privacidad</span></h1>
+  <p class="updated">Última actualización: junio 2026</p>
+
+  <h2>1. Quiénes somos</h2>
+  <p>BOTTO Automatizaciones es una agencia con sede en Buenos Aires, Argentina, que construye bots de WhatsApp con inteligencia artificial para negocios locales (peluquerías, gastronomía, salud, retail). Esta política describe qué datos recopilamos cuando interactuás con un bot operado por BOTTO en nombre de un negocio cliente, o cuando nos contactás directamente.</p>
+
+  <div class="gold-line"></div>
+  <h2>2. Datos que recopilamos</h2>
+  <p>Cuando escribís a un bot de un negocio que usa BOTTO, podemos recopilar y procesar:</p>
+  <ul>
+    <li>Nombre y apellido</li>
+    <li>Número de teléfono de WhatsApp</li>
+    <li>Mensajes que enviás por WhatsApp al bot</li>
+    <li>Correo electrónico (únicamente si lo brindás voluntariamente para recibir promociones del negocio)</li>
+    <li>Fecha, horario y datos del turno solicitado (si aplica)</li>
+  </ul>
+
+  <div class="gold-line"></div>
+  <h2>3. Cómo usamos tus datos</h2>
+  <p>Usamos los datos exclusivamente para:</p>
+  <ul>
+    <li>Gestionar turnos del negocio: alta, modificación y cancelación</li>
+    <li>Responder consultas frecuentes (horarios, precios, servicios, ubicación)</li>
+    <li>Enviar comunicaciones del negocio al que pertenece el bot — recordatorios, promociones, novedades</li>
+    <li>Derivar la conversación a una persona del negocio cuando el bot no puede resolver tu consulta</li>
+  </ul>
+
+  <div class="gold-line"></div>
+  <h2>4. Quién accede a tus datos</h2>
+  <p>Tus datos se procesan dentro de la infraestructura técnica de BOTTO y son visibles únicamente para:</p>
+  <ul>
+    <li>El negocio cliente que opera el bot con el que estás conversando</li>
+    <li>El equipo técnico de BOTTO, con fines de soporte y mantenimiento</li>
+    <li>Servicios de terceros estrictamente necesarios para que el bot funcione: WhatsApp Business Platform (Meta), proveedores de procesamiento de lenguaje natural y planillas internas del negocio</li>
+  </ul>
+  <p><strong>No vendemos, alquilamos ni cedemos tus datos a terceros</strong> con fines publicitarios o comerciales ajenos al servicio que estás recibiendo del negocio cliente.</p>
+
+  <div class="gold-line"></div>
+  <h2>5. Conservación</h2>
+  <p>Conservamos los datos mientras el bot del negocio cliente siga operativo. Si solicitás la eliminación de tus datos, la procesamos dentro de los 30 días corridos.</p>
+
+  <div class="gold-line"></div>
+  <h2>6. Tus derechos</h2>
+  <p>En cualquier momento podés:</p>
+  <ul>
+    <li>Solicitar una copia de los datos que tenemos sobre vos</li>
+    <li>Pedir la corrección o eliminación de tus datos</li>
+    <li>Retirar el consentimiento para recibir comunicaciones del negocio</li>
+  </ul>
+
+  <div class="gold-line"></div>
+  <h2>7. Seguridad</h2>
+  <p>Aplicamos medidas técnicas razonables para proteger tus datos: encriptación en tránsito, control de acceso a la infraestructura y respaldos automáticos. Ningún sistema en internet es invulnerable, pero hacemos lo posible para minimizar riesgos.</p>
+
+  <div class="gold-line"></div>
+  <h2>8. Cambios a esta política</h2>
+  <p>Podemos actualizar esta política en el futuro. La fecha de la última actualización figura al inicio del documento. Si los cambios son significativos, lo comunicaremos por el canal que corresponda.</p>
+
+  <div class="gold-line"></div>
+  <h2>9. Contacto</h2>
+  <p>Para ejercer tus derechos o hacer consultas sobre privacidad, escribinos a <a class="inline" href="mailto:bottoauto.ag@gmail.com">bottoauto.ag@gmail.com</a>.</p>
+
+  <a class="back-home" href="/">&larr; Volver al inicio</a>
+</main>
+
+<footer>
+  <div class="footer-logo">
+    <svg width="28" height="17" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="26" cy="30" r="21" fill="none" stroke="#1a1a1a" stroke-width="7"/>
+      <circle cx="74" cy="30" r="21" fill="none" stroke="#1a1a1a" stroke-width="7"/>
+      <circle cx="26" cy="30" r="21" fill="none" stroke="#FF6B00" stroke-width="7"/>
+      <circle cx="74" cy="30" r="21" fill="none" stroke="#FF6B00" stroke-width="7"/>
+      <circle cx="74" cy="30" r="5" fill="#C9A84C"/>
+    </svg>
+    <span class="footer-logo-text">BOTTO</span>
+  </div>
+  <p class="footer-contact">Contacto: <a href="mailto:bottoauto.ag@gmail.com">bottoauto.ag@gmail.com</a></p>
+  <p>bottoauto.org · Buenos Aires, Argentina</p>
+  <p>&copy; 2026 BOTTO</p>
+</footer>
+
+</body>
+</html>

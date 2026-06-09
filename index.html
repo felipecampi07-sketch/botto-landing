@@ -60,10 +60,10 @@
     border-radius: 7px; font-size: 13px;
     font-family: 'DM Sans', sans-serif;
     font-weight: 500; cursor: pointer;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, transform 0.25s, box-shadow 0.25s;
     text-decoration: none; display: inline-block;
   }
-  .nav-cta:hover { opacity: 0.88; }
+  .nav-cta:hover { opacity: 0.88; transform: translateY(-2px); box-shadow: 0 6px 18px rgba(255,107,0,0.3); }
 
   /* ── LOGO SVG ANIMADO ── */
   .logo-svg { width: 40px; height: 24px; }
@@ -186,19 +186,19 @@
     font-size: 14px; font-weight: 500;
     font-family: 'DM Sans', sans-serif;
     border: none; cursor: pointer;
-    transition: opacity 0.2s, transform 0.2s;
+    transition: opacity 0.2s, transform 0.25s, box-shadow 0.25s;
     text-decoration: none; display: inline-block;
   }
-  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(255,107,0,0.25); }
   .btn-secondary {
     background: transparent; color: var(--blanco);
     padding: 13px 30px; border-radius: 8px;
     font-size: 14px; font-weight: 400;
     font-family: 'DM Sans', sans-serif;
     border: 0.5px solid var(--gris); cursor: pointer;
-    transition: border-color 0.2s, transform 0.2s;
+    transition: opacity 0.2s, transform 0.25s, box-shadow 0.25s;
   }
-  .btn-secondary:hover { border-color: var(--texto-muted); transform: translateY(-1px); }
+  .btn-secondary:hover { border-color: var(--texto-muted); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255,255,255,0.05); }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
@@ -615,6 +615,38 @@
       gap: 0.5rem;
     }
   }
+
+  /* ── RUBROS ── */
+  .rubros-section { background: var(--negro); }
+  .rubros-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .rubro-card {
+    background: var(--carbon);
+    border: 0.5px solid var(--gris);
+    border-radius: 12px;
+    padding: 2rem 1.75rem;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .rubro-card:hover { border-color: rgba(255,107,0,0.35); transform: translateY(-4px); }
+  .rubro-icon { font-size: 28px; margin-bottom: 1rem; }
+  .rubro-card h3 { font-size: 15px; font-weight: 500; color: var(--blanco); margin-bottom: 8px; }
+  .rubro-card p { font-size: 13px; color: var(--texto-muted); line-height: 1.65; }
+
+  @media (max-width: 768px) {
+    .rubros-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── CONFIANZA ── */
+  .trust-section { background: var(--carbon); }
+  .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--gris); border-radius: 12px; overflow: hidden; }
+  .trust-item { background: var(--carbon); padding: 2rem 1.75rem; transition: background 0.2s; }
+  .trust-item:hover { background: #151515; }
+  .trust-num { font-size: 22px; color: var(--naranja); margin-bottom: 0.75rem; }
+  .trust-title { font-size: 14px; font-weight: 500; color: var(--blanco); margin-bottom: 8px; }
+  .trust-text { font-size: 13px; color: var(--texto-muted); line-height: 1.65; }
+
+  @media (max-width: 768px) {
+    .trust-grid { grid-template-columns: 1fr; gap: 0; }
+  }
 </style>
 </head>
 <body>
@@ -663,7 +695,7 @@
 
   <h1>Tu negocio trabaja.<br><span class="accent">BOTTO</span> también.</h1>
 
-  <p class="hero-sub">Automatizamos la atención al cliente de cualquier negocio para que tu equipo se enfoque en lo que realmente importa.</p>
+  <p class="hero-sub">Automatizamos la atención de tu negocio por WhatsApp. El bot agenda turnos, responde consultas y atiende clientes — mientras vos te enfocás en trabajar.</p>
 
   <div class="hero-trust-badge">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -687,9 +719,9 @@
     <div class="stat-source">Dante AI, 2026</div>
   </div>
   <div class="stat-item">
-    <div class="stat-num">−80%</div>
-    <div class="stat-label">Consultas manuales</div>
-    <div class="stat-source">Promedio clientes BOTTO</div>
+    <div class="stat-num">24/7</div>
+    <div class="stat-label">Atención sin pausas</div>
+    <div class="stat-source">Fines de semana y feriados incluidos</div>
   </div>
   <div class="stat-item">
     <div class="stat-num">87%</div>
@@ -936,6 +968,58 @@
   </div>
 </section>
 
+<!-- RUBROS -->
+<section class="section rubros-section" id="rubros">
+  <div class="section-inner">
+    <p class="section-tag reveal">PARA QUIÉN ES</p>
+    <h2 class="section-title reveal">Hecho para negocios como el tuyo</h2>
+    <p class="section-sub reveal">No importa el rubro. Si atendés clientes por WhatsApp, BOTTO trabaja para vos.</p>
+    <div class="rubros-grid reveal">
+      <div class="rubro-card">
+        <div class="rubro-icon">✂️</div>
+        <h3>Barberías y salones</h3>
+        <p>El teléfono no para de sonar con turnos. BOTTO los agenda solo, manda recordatorios y evita ausencias — mientras vos trabajás.</p>
+      </div>
+      <div class="rubro-card">
+        <div class="rubro-icon">🍽️</div>
+        <h3>Restaurantes</h3>
+        <p>Reservas, el menú del día, horarios. BOTTO responde al instante para que tu equipo se enfoque en la cocina y el salón.</p>
+      </div>
+      <div class="rubro-card">
+        <div class="rubro-icon">🏠</div>
+        <h3>Inmobiliarias</h3>
+        <p>Consultas de propiedades a cualquier hora. BOTTO filtra, informa y agenda visitas sin que un asesor tenga que estar disponible 24/7.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONFIANZA -->
+<section class="section trust-section">
+  <div class="section-inner">
+    <p class="section-tag reveal">POR QUÉ CONFIAR</p>
+    <h2 class="section-title reveal">Sin riesgos. Sin sorpresas.</h2>
+    <p class="section-sub reveal">Usamos la API oficial de Meta. Eso cambia todo.</p>
+    <div class="trust-grid reveal">
+      <div class="trust-item">
+        <div class="trust-num">✓</div>
+        <div class="trust-title">API oficial de Meta</div>
+        <div class="trust-text">Sin riesgo de ban. El bot corre sobre la infraestructura oficial de WhatsApp Business, igual que las grandes empresas.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-num">✓</div>
+        <div class="trust-title">Tu WhatsApp sigue siendo tuyo</div>
+        <div class="trust-text">Seguís usando tu número normalmente desde el celular. El bot atiende en paralelo sin interferir.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-num">✓</div>
+        <div class="trust-title">Datos encriptados</div>
+        <div class="trust-text">Las conversaciones de tus clientes no las ve nadie más. Todo viaja y se guarda de forma segura.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PRECIOS -->
 <section class="section pricing-section" id="precios">
   <div class="section-inner">
@@ -947,6 +1031,7 @@
         <div class="price-setup">SETUP INICIAL</div>
         <div class="price-amount">A consultar</div>
         <div class="price-period">pago único</div>
+        <p style="font-size:12px; color:#555; margin-bottom:1rem; line-height:1.5;">Se define según tu negocio en la primera reunión. Sin sorpresas.</p>
         <ul class="price-features">
           <li><span>→</span>Bot configurado a medida</li>
           <li><span>→</span>Integración WhatsApp</li>

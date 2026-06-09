@@ -248,7 +248,7 @@
   /* ── CHIP SECTION — SMOOTH SCROLL ANIMATION ── */
   .chip-section {
     background: var(--carbon);
-    padding: 6rem 3rem;
+    padding: 2rem 3rem 6rem;
   }
   .chip-container {
     display: grid;
@@ -315,7 +315,7 @@
     margin-left: 20px;
   }
   .chip-section-header {
-    padding: 6rem 3rem 2rem;
+    padding: 6rem 3rem 0;
     background: var(--carbon);
   }
 
@@ -660,7 +660,7 @@
 
   <div class="hero-btns">
     <a href="https://wa.me/5491165383741?text=Hola%20BOTTO%2C%20quiero%20una%20demo" target="_blank" rel="noopener" class="btn-primary">Quiero una demo</a>
-    <button class="btn-secondary">Ver servicios</button>
+    <a href="#servicios" class="btn-secondary">Ver servicios</a>
   </div>
 </section>
 
@@ -795,17 +795,30 @@
     <div class="active-bot-grid reveal">
       <div>
         <div class="chat-mockup">
+          <div style="display:flex; align-items:center; gap:10px; padding-bottom:1rem; margin-bottom:1rem; border-bottom:0.5px solid #1e1e1e;">
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,107,0,0.15);display:flex;align-items:center;justify-content:center;">
+              <svg width="16" height="10" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg"><circle cx="26" cy="30" r="21" fill="none" stroke="#FF6B00" stroke-width="9"/><circle cx="74" cy="30" r="21" fill="none" stroke="#FF6B00" stroke-width="9"/><circle cx="74" cy="30" r="5" fill="#C9A84C"/></svg>
+            </div>
+            <div>
+              <div style="font-size:13px;font-weight:500;color:var(--blanco);">BOTTO</div>
+              <div style="font-size:10px;color:#4caf50;">● En línea</div>
+            </div>
+          </div>
           <div class="chat-bubble">
-            ¡Hola! Esta semana tenemos una promoción especial para vos. ¿Querés que te cuente los detalles?
+            Hola Lucía 👋 Tenemos un 20% off en mechas esta semana. ¿Te anoto un turno?
             <div class="chat-time">BOTTO · 10:30</div>
           </div>
           <div class="chat-bubble user">
-            Sí, contame
-            <div class="chat-time">10:32</div>
+            Sí, el jueves a las 18hs
+            <div class="chat-time">10:31</div>
           </div>
           <div class="chat-bubble">
-            ✅ Perfecto. Te voy a enviar toda la info por este medio cuando esté disponible. ¡Gracias por tu interés!
-            <div class="chat-time">BOTTO · 10:32</div>
+            ✅ Listo, Lucía. Turno confirmado para el <strong>jueves a las 18hs</strong>. Te mando un recordatorio el día anterior.
+            <div class="chat-time">BOTTO · 10:31</div>
+          </div>
+          <div class="chat-bubble user">
+            Gracias!
+            <div class="chat-time">10:32</div>
           </div>
         </div>
       </div>
@@ -1000,8 +1013,8 @@
 <!-- PRECIOS -->
 <section class="section pricing-section" id="precios">
   <div class="section-inner">
-    <p class="section-tag reveal">PRECIOS</p>
-    <h2 class="section-title reveal">Claro y directo</h2>
+    <p class="section-tag reveal" style="font-size:13px; letter-spacing:1px; color:var(--naranja); margin-bottom:0.5rem;">Claro y directo</p>
+    <h2 class="section-title reveal">Precios</h2>
     <p class="section-sub reveal">Sin sorpresas. Sin letra chica. Sin compromiso el primer mes.</p>
     <div class="pricing-grid reveal">
       <div class="price-card">

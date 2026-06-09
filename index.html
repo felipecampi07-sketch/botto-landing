@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BOTTO — Tu negocio trabaja. BOTTO también.</title>
+<link rel="icon" type="image/png" href="https://www.figma.com/api/mcp/asset/111e9b55-f0d2-44cb-a37a-75b48065f977">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -440,7 +441,7 @@
 
   /* ── TESTIMONIAL / PROMESA ── */
   .promise-section { background: var(--negro); }
-  .promise-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--gris); border-radius: 12px; overflow: hidden; }
+  .promise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--gris); border-radius: 12px; overflow: hidden; }
   .promise-item { background: var(--carbon); padding: 2rem 1.5rem; }
   .promise-num { font-size: 28px; font-weight: 500; color: var(--naranja); margin-bottom: 0.5rem; }
   .promise-title { font-size: 13px; font-weight: 500; color: var(--blanco); margin-bottom: 6px; }
@@ -640,7 +641,7 @@
   .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--gris); border-radius: 12px; overflow: hidden; }
   .trust-item { background: var(--carbon); padding: 2rem 1.75rem; transition: background 0.2s; }
   .trust-item:hover { background: #151515; }
-  .trust-num { font-size: 22px; color: var(--naranja); margin-bottom: 0.75rem; }
+  .trust-logo-icon { margin-bottom: 1.25rem; }
   .trust-title { font-size: 14px; font-weight: 500; color: var(--blanco); margin-bottom: 8px; }
   .trust-text { font-size: 13px; color: var(--texto-muted); line-height: 1.65; }
 
@@ -696,14 +697,6 @@
   <h1>Tu negocio trabaja.<br><span class="accent">BOTTO</span> también.</h1>
 
   <p class="hero-sub">Automatizamos la atención de tu negocio por WhatsApp. El bot agenda turnos, responde consultas y atiende clientes — mientras vos te enfocás en trabajar.</p>
-
-  <div class="hero-trust-badge">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M9 11l3 3L22 4"/>
-      <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
-    </svg>
-    <span>87% de satisfacción en atención automatizada</span>
-  </div>
 
   <div class="hero-btns">
     <a href="https://wa.me/5491165383741?text=Hola%20BOTTO%2C%20quiero%20una%20demo" target="_blank" rel="noopener" class="btn-primary">Quiero una demo</a>
@@ -1002,17 +995,41 @@
     <p class="section-sub reveal">Usamos la API oficial de Meta. Eso cambia todo.</p>
     <div class="trust-grid reveal">
       <div class="trust-item">
-        <div class="trust-num">✓</div>
+        <div class="trust-logo-icon">
+          <svg width="36" height="22" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="26" cy="30" r="21" fill="none" stroke="#1a1a1a" stroke-width="7"/>
+            <circle cx="74" cy="30" r="21" fill="none" stroke="#1a1a1a" stroke-width="7"/>
+            <circle cx="26" cy="30" r="21" fill="none" stroke="#FF6B00" stroke-width="7"/>
+            <circle cx="74" cy="30" r="21" fill="none" stroke="#FF6B00" stroke-width="7"/>
+            <circle cx="74" cy="30" r="5" fill="#C9A84C"/>
+          </svg>
+        </div>
         <div class="trust-title">API oficial de Meta</div>
         <div class="trust-text">Sin riesgo de ban. El bot corre sobre la infraestructura oficial de WhatsApp Business, igual que las grandes empresas.</div>
       </div>
       <div class="trust-item">
-        <div class="trust-num">✓</div>
+        <div class="trust-logo-icon">
+          <svg width="36" height="22" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="26" cy="30" r="21" fill="none" stroke="#1a1a1a" stroke-width="7"/>
+            <circle cx="74" cy="30" r="21" fill="none" stroke="#1a1a1a" stroke-width="7"/>
+            <circle cx="26" cy="30" r="21" fill="none" stroke="#FF6B00" stroke-width="7"/>
+            <circle cx="74" cy="30" r="21" fill="none" stroke="#FF6B00" stroke-width="7"/>
+            <circle cx="74" cy="30" r="5" fill="#C9A84C"/>
+          </svg>
+        </div>
         <div class="trust-title">Tu WhatsApp sigue siendo tuyo</div>
         <div class="trust-text">Seguís usando tu número normalmente desde el celular. El bot atiende en paralelo sin interferir.</div>
       </div>
       <div class="trust-item">
-        <div class="trust-num">✓</div>
+        <div class="trust-logo-icon">
+          <svg width="36" height="22" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="26" cy="30" r="21" fill="none" stroke="#1a1a1a" stroke-width="7"/>
+            <circle cx="74" cy="30" r="21" fill="none" stroke="#1a1a1a" stroke-width="7"/>
+            <circle cx="26" cy="30" r="21" fill="none" stroke="#FF6B00" stroke-width="7"/>
+            <circle cx="74" cy="30" r="21" fill="none" stroke="#FF6B00" stroke-width="7"/>
+            <circle cx="74" cy="30" r="5" fill="#C9A84C"/>
+          </svg>
+        </div>
         <div class="trust-title">Datos encriptados</div>
         <div class="trust-text">Las conversaciones de tus clientes no las ve nadie más. Todo viaja y se guarda de forma segura.</div>
       </div>
@@ -1072,11 +1089,6 @@
         <div class="promise-text">Ningún bot de BOTTO es igual a otro. Es el tuyo.</div>
       </div>
       <div class="promise-item">
-        <div class="promise-num">Siempre</div>
-        <div class="promise-title">Soporte incluido</div>
-        <div class="promise-text">No quedás solo después del setup. BOTTO acompaña.</div>
-      </div>
-      <div class="promise-item">
         <div class="promise-num">Total</div>
         <div class="promise-title">Transparencia</div>
         <div class="promise-text">Si algo no funciona, lo decimos. Sin vueltas.</div>
@@ -1088,11 +1100,6 @@
 <!-- CTA FINAL -->
 <section class="cta-section">
   <div class="cta-bg"></div>
-  <div class="cta-stat-block reveal">
-    <div class="cta-stat-num">16×</div>
-    <div class="cta-stat-label">Crecimiento en adopción de chatbots entre 2020 y 2025</div>
-    <div class="cta-stat-source">Zendesk · Una de las curvas de adopción más rápidas en tecnología empresarial</div>
-  </div>
   <h2 class="reveal">¿Querés verlo funcionar?</h2>
   <p class="reveal">Te armamos una demo con tu negocio. Sin costo, sin compromiso.</p>
   <a href="https://wa.me/5491165383741?text=Hola%20BOTTO%2C%20quiero%20una%20demo" target="_blank" rel="noopener" class="btn-primary reveal" style="font-size:15px;padding:15px 36px;">Pedir demo por WhatsApp</a>

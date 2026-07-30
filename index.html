@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BOTTO — Tu negocio trabaja. BOTTO también.</title>
+<title>BOTTO — Tus clientes no esperan. BOTTO los atiende.</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -503,6 +503,50 @@
     text-decoration: underline;
   }
 
+  /* ── PRICING SIN PRECIO ── */
+  .pricing-no-price {
+    background: var(--negro);
+    border: 0.5px solid var(--gris);
+    border-radius: 16px;
+    padding: 3rem;
+    max-width: 520px;
+  }
+  .pricing-no-price h3 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--blanco);
+    margin-bottom: 1rem;
+  }
+  .pricing-no-price p {
+    font-size: 14px;
+    color: var(--texto-muted);
+    line-height: 1.7;
+  }
+
+  /* ── CTA PROMISES ── */
+  .cta-promises {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+  .cta-promise-item { text-align: center; }
+  .cta-promise-num {
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: var(--naranja);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .cta-promise-label {
+    font-size: 12px;
+    color: var(--texto-muted);
+    letter-spacing: 0.5px;
+  }
+  @media (max-width: 768px) {
+    .cta-promises { gap: 1.5rem; flex-wrap: wrap; }
+  }
+
   /* ── LÍNEA DORADA ── */
   .gold-line { width: 40px; height: 1px; background: var(--dorado); margin-bottom: 1.5rem; }
 
@@ -678,9 +722,9 @@
 
   <div class="hero-badge">SOLUCIONES CON IA · LATAM</div>
 
-  <h1>Tu negocio trabaja.<br><span class="accent">BOTTO</span> también.</h1>
+  <h1>Tus clientes no esperan.<br><span class="accent">BOTTO</span> los atiende.</h1>
 
-  <p class="hero-sub">Tu negocio atiende solo. Por WhatsApp, las 24 horas.</p>
+  <p class="hero-sub">Automatizamos la atención de tu negocio por WhatsApp. Turnos, consultas y ventas — sin que vos tengas que estar.</p>
 
   <div class="hero-btns">
     <a href="https://wa.me/5491165383741?text=Hola%20BOTTO%2C%20estoy%20interesado" target="_blank" rel="noopener" class="btn-primary">Estoy interesado</a>
@@ -814,8 +858,8 @@
 <section class="active-bot-section">
   <div class="section-inner">
     <p class="section-tag reveal">MODO ACTIVO</p>
-    <h2 class="section-title reveal">BOTTO no solo atiende. También vende.</h2>
-    <p class="section-sub reveal">La diferencia entre un bot que responde y un bot que genera ventas.</p>
+    <h2 class="section-title reveal">Tu negocio vende mientras dormís.</h2>
+    <p class="section-sub reveal">BOTTO puede iniciar conversaciones, enviar promos y cerrar turnos — sin que intervenga nadie.</p>
     <div class="active-bot-grid reveal">
       <div>
         <div class="chat-mockup">
@@ -1040,55 +1084,13 @@
     <p class="section-tag reveal" style="font-size:13px; letter-spacing:1px; color:var(--naranja); margin-bottom:0.5rem;">Claro y directo</p>
     <h2 class="section-title reveal">Precios</h2>
     <p class="section-sub reveal">Sin sorpresas. Sin letra chica. Sin compromiso el primer mes.</p>
-    <div class="pricing-grid reveal">
-      <div class="price-card">
-        <div class="price-setup">SETUP INICIAL</div>
-        <div class="price-amount">A consultar</div>
-        <div class="price-period">pago único</div>
-        <p style="font-size:12px; color:#555; margin-bottom:1rem; line-height:1.5;">Se define según tu negocio en la primera reunión. Sin sorpresas.</p>
-        <ul class="price-features">
-          <li><span>→</span>Bot configurado a medida</li>
-          <li><span>→</span>Integración WhatsApp</li>
-          <li><span>→</span>Google Sheets incluido</li>
-          <li><span>→</span>7 días de entrega</li>
-        </ul>
-      </div>
-      <div class="price-card featured">
-        <div class="price-setup">MANTENIMIENTO</div>
-        <div class="price-amount">$60.000 ARS/mes</div>
-        <div class="price-period">por mes</div>
-        <ul class="price-features">
-          <li><span>→</span>Bot activo 24/7</li>
-          <li><span>→</span>Soporte y ajustes</li>
-          <li><span>→</span>Actualizaciones incluidas</li>
-          <li><span>→</span><strong style="color:var(--naranja)">Primer mes gratis</strong></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROMESA -->
-<section class="section promise-section">
-  <div class="section-inner">
-    <p class="section-tag reveal">NUESTRA PROMESA</p>
-    <h2 class="section-title reveal">Lo que BOTTO garantiza</h2>
-    <div class="gold-line reveal"></div>
-    <div class="promise-grid reveal">
-      <div class="promise-item">
-        <div class="promise-num">7 días</div>
-        <div class="promise-title">Entrega garantizada</div>
-        <div class="promise-text">Si acordamos esa fecha, se cumple. Sin excusas.</div>
-      </div>
-      <div class="promise-item">
-        <div class="promise-num">100%</div>
-        <div class="promise-title">A medida</div>
-        <div class="promise-text">Ningún bot de BOTTO es igual a otro. Es el tuyo.</div>
-      </div>
-      <div class="promise-item">
-        <div class="promise-num">Total</div>
-        <div class="promise-title">Transparencia</div>
-        <div class="promise-text">Si algo no funciona, lo decimos. Sin vueltas.</div>
+    <div class="pricing-no-price reveal">
+      <div class="pricing-no-price-inner">
+        <div class="gold-line"></div>
+        <h3>Sin costo de setup. Sin letra chica.</h3>
+        <p>El primer mes es gratis. Si genera valor, seguimos. Si no, sin compromiso.</p>
+        <p style="margin-top:1rem; font-size:13px; color:#555;">El valor del servicio se define en la primera reunión según tu negocio.</p>
+        <a href="https://wa.me/5491165383741?text=Hola%20BOTTO%2C%20quiero%20una%20demo" target="_blank" rel="noopener" class="btn-primary" style="margin-top:2rem; display:inline-block;">Hablemos por WhatsApp</a>
       </div>
     </div>
   </div>
@@ -1097,10 +1099,24 @@
 <!-- CTA FINAL -->
 <section class="cta-section">
   <div class="cta-bg"></div>
+  <div class="cta-promises reveal">
+    <div class="cta-promise-item">
+      <div class="cta-promise-num">7 días</div>
+      <div class="cta-promise-label">Entrega garantizada</div>
+    </div>
+    <div class="cta-promise-item">
+      <div class="cta-promise-num">100%</div>
+      <div class="cta-promise-label">A medida</div>
+    </div>
+    <div class="cta-promise-item">
+      <div class="cta-promise-num">$0</div>
+      <div class="cta-promise-label">Setup inicial</div>
+    </div>
+  </div>
   <h2 class="reveal">¿Querés verlo funcionar?</h2>
   <p class="reveal">Te armamos una demo con tu negocio. Sin costo, sin compromiso.</p>
-  <a href="https://wa.me/5491165383741?text=Hola%20BOTTO%2C%20estoy%20interesado" target="_blank" rel="noopener" class="btn-primary reveal" style="font-size:15px;padding:15px 36px;">Pedir info por WhatsApp</a>
-  <p class="cta-terms reveal">Una vez que acordemos los detalles, te enviamos por mail los términos y condiciones del servicio para tu revisión.</p>
+  <a href="https://wa.me/5491165383741?text=Hola%20BOTTO%2C%20quiero%20una%20demo" target="_blank" rel="noopener" class="btn-primary reveal" style="font-size:15px;padding:15px 36px;">Pedir demo por WhatsApp</a>
+  <p class="cta-terms reveal">Una vez que acordemos los detalles, te enviamos por mail los términos y condiciones.</p>
 </section>
 
 <!-- FOOTER -->

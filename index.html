@@ -445,35 +445,38 @@
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
+      gap: 20px;
     }
 
     .service-card {
-      background: var(--white);
-      border: 1.5px solid var(--gray-border);
-      border-radius: var(--radius);
-      padding: 2rem;
-      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      background: #fff;
+      border: 1px solid #efefef;
+      border-radius: 16px;
+      padding: 1.75rem;
+      position: relative;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      cursor: pointer;
     }
 
     .service-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 40px rgba(255,107,0,0.12);
-      border-color: var(--orange);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 32px rgba(255,107,0,0.1);
+      border-color: rgba(255,107,0,0.3);
     }
 
     .service-num {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      color: var(--orange);
-      margin-bottom: 1rem;
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 12px;
+      color: #ccc;
+      font-weight: 500;
     }
 
     .service-icon {
       width: 44px;
       height: 44px;
-      background: #FFF0E6;
+      background: rgba(255,107,0,0.08);
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -481,30 +484,45 @@
       margin-bottom: 1rem;
     }
 
-    .service-icon svg { width: 22px; height: 22px; }
+    .service-icon svg { width: 22px; height: 22px; stroke: #FF6B00; fill: none; stroke-width: 1.5; }
 
-    .service-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .service-title { font-size: 16px; font-weight: 600; color: #0A0A0A; margin-bottom: 8px; }
 
     .service-desc {
-      font-size: 0.875rem;
-      color: var(--gray-text);
-      line-height: 1.6;
-      margin-bottom: 1rem;
+      font-size: 13px;
+      color: #666;
+      line-height: 1.65;
+      margin-bottom: 0;
     }
 
-    .service-more {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--orange);
+    .card-info {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, opacity 0.3s ease;
       opacity: 0;
-      transform: translateX(-4px);
-      transition: opacity var(--transition), transform var(--transition);
-      display: block;
+      font-size: 13px;
+      color: #555;
+      line-height: 1.6;
+      margin-top: 0;
     }
 
-    .service-card:hover .service-more {
+    .card-info.open {
+      max-height: 120px;
       opacity: 1;
-      transform: translateX(0);
+      margin-top: 12px;
+    }
+
+    .card-more {
+      cursor: pointer;
+      color: #FF6B00;
+      font-size: 13px;
+      margin-top: 12px;
+      display: inline-block;
+      transition: opacity 0.2s;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: var(--font);
     }
 
     /* ─── CÓMO FUNCIONA ─── */
@@ -721,6 +739,10 @@
       .widget-card { max-width: 100%; }
       .stats-inner { grid-template-columns: repeat(2, 1fr); }
       .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .services-grid { grid-template-columns: 1fr; }
       .steps-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .steps-grid::before { display: none; }
       .contacto-inner { grid-template-columns: 1fr; }
@@ -730,7 +752,6 @@
     @media (max-width: 600px) {
       .nav-links { display: none; }
       .nav-burger { display: flex; }
-      .services-grid { grid-template-columns: 1fr; }
       .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
       .form-row { grid-template-columns: 1fr; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
@@ -743,10 +764,11 @@
   <nav id="mainNav">
     <div class="nav-inner">
       <a href="/" class="nav-logo" aria-label="BOTTO">
-        <div class="logo-rings">
-          <div class="logo-ring"></div>
-          <div class="logo-ring"></div>
-        </div>
+        <svg width="44" height="26" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="30" r="21" fill="none" stroke="#0A0A0A" stroke-width="7"/>
+          <circle cx="74" cy="30" r="21" fill="none" stroke="#0A0A0A" stroke-width="7"/>
+          <circle cx="74" cy="30" r="5" fill="#C9A84C"/>
+        </svg>
         <span class="logo-text">BOTTO</span>
       </a>
       <ul class="nav-links">
@@ -865,56 +887,62 @@
       <div class="service-card reveal">
         <div class="service-num">01</div>
         <div class="service-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </div>
-        <h3 class="service-title">WhatsApp Bot con IA</h3>
-        <p class="service-desc">Tu negocio responde consultas, gestiona turnos y cierra ventas en WhatsApp las 24 horas, sin que vos tengas que estar.</p>
-        <span class="service-more">Ver cómo funciona →</span>
+        <h3 class="service-title">Bot de WhatsApp</h3>
+        <p class="service-desc">Atención 24hs sin operador. Agenda turnos, responde consultas y deriva al equipo cuando hace falta.</p>
+        <div class="card-info">El bot atiende por WhatsApp las 24hs. Agenda turnos, responde consultas y deriva al dueño cuando no puede resolver. Se configura en 7 días con tu info específica.</div>
+        <span class="card-more">Saber más →</span>
       </div>
       <div class="service-card reveal reveal-delay-1">
         <div class="service-num">02</div>
         <div class="service-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
-        <h3 class="service-title">Gestión de Agenda</h3>
-        <p class="service-desc">Reservas y recordatorios automáticos vía WhatsApp. Reducí ausencias y eliminá la agenda en papel.</p>
-        <span class="service-more">Ver cómo funciona →</span>
+        <h3 class="service-title">Reportes automáticos</h3>
+        <p class="service-desc">Recibís un resumen de tus métricas clave donde quieras, sin armar planillas ni hacer cuentas a mano.</p>
+        <div class="card-info">Conectamos tus fuentes de datos y generamos reportes automáticos. Sin planillas manuales, sin errores. Recibís un resumen donde quieras.</div>
+        <span class="card-more">Saber más →</span>
       </div>
       <div class="service-card reveal reveal-delay-2">
         <div class="service-num">03</div>
         <div class="service-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         </div>
-        <h3 class="service-title">CRM Automático</h3>
-        <p class="service-desc">Cada cliente que te escribe queda registrado con sus datos, historial y estado en tu base de datos automáticamente.</p>
-        <span class="service-more">Ver cómo funciona →</span>
+        <h3 class="service-title">Sincronización de datos</h3>
+        <p class="service-desc">Tus herramientas comparten información en tiempo real. Un dato se carga una vez y aparece en todos lados.</p>
+        <div class="card-info">Tus herramientas (CRM, Sheets, WhatsApp, formularios) comparten información en tiempo real. Un dato se carga una vez y aparece en todos lados.</div>
+        <span class="card-more">Saber más →</span>
       </div>
       <div class="service-card reveal">
         <div class="service-num">04</div>
         <div class="service-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
         </div>
-        <h3 class="service-title">Email Marketing</h3>
-        <p class="service-desc">Campañas automáticas segmentadas. Enviá promos, novedades y seguimientos sin tocar un botón.</p>
-        <span class="service-more">Ver cómo funciona →</span>
+        <h3 class="service-title">Automatización de procesos</h3>
+        <p class="service-desc">Convertimos la tarea que más tiempo te lleva en un flujo automático. Desde presupuestos hasta seguimiento.</p>
+        <div class="card-info">Identificamos la tarea repetitiva que más tiempo te consume y la convertimos en un flujo automático. Desde presupuestos hasta seguimiento de clientes.</div>
+        <span class="card-more">Saber más →</span>
       </div>
       <div class="service-card reveal reveal-delay-1">
         <div class="service-num">05</div>
         <div class="service-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><circle cx="15" cy="10" r="1.5"/></svg>
         </div>
-        <h3 class="service-title">Reportes Automáticos</h3>
-        <p class="service-desc">Recibí un resumen semanal de métricas clave directo al WhatsApp o al mail, sin configurar nada.</p>
-        <span class="service-more">Ver cómo funciona →</span>
+        <h3 class="service-title">Carteles NFC</h3>
+        <p class="service-desc">El cliente acerca el celular al cartel en tu mostrador y se abre directo Google para dejar su reseña.</p>
+        <div class="card-info">Un cartel físico en tu mostrador. El cliente acerca el celular y se abre Google para dejar una reseña. Sin apps, sin pasos, sin fricción.</div>
+        <span class="card-more">Saber más →</span>
       </div>
       <div class="service-card reveal reveal-delay-2">
         <div class="service-num">06</div>
         <div class="service-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         </div>
-        <h3 class="service-title">Integraciones a medida</h3>
-        <p class="service-desc">Conectamos las herramientas que ya usás: Google Sheets, Mercado Pago, tu sistema de facturación y más.</p>
-        <span class="service-more">Ver cómo funciona →</span>
+        <h3 class="service-title">Plataformas a medida</h3>
+        <p class="service-desc">Para operaciones más complejas: roles, permisos, dashboards. Lo construimos desde cero para vos.</p>
+        <div class="card-info">Si necesitás algo más complejo — roles, permisos, dashboards, exportaciones — lo construimos desde cero adaptado a tu operación.</div>
+        <span class="card-more">Saber más →</span>
       </div>
     </div>
   </section>
@@ -995,10 +1023,11 @@
   <footer>
     <div class="footer-inner">
       <div class="footer-logo">
-        <div class="logo-rings">
-          <div class="logo-ring"></div>
-          <div class="logo-ring"></div>
-        </div>
+        <svg width="44" height="26" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="30" r="21" fill="none" stroke="#FFFFFF" stroke-width="7"/>
+          <circle cx="74" cy="30" r="21" fill="none" stroke="#FFFFFF" stroke-width="7"/>
+          <circle cx="74" cy="30" r="5" fill="#C9A84C"/>
+        </svg>
         <span class="logo-text">BOTTO</span>
       </div>
       <div class="footer-center">
@@ -1074,6 +1103,21 @@
       setTimeout(runWidget, 5200);
     }
     runWidget();
+
+    document.querySelectorAll('.card-more').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const info = btn.previousElementSibling;
+        const isOpen = info.classList.contains('open');
+        document.querySelectorAll('.card-info.open').forEach(el => {
+          el.classList.remove('open');
+          if (el.nextElementSibling) el.nextElementSibling.textContent = 'Saber más →';
+        });
+        if (!isOpen) {
+          info.classList.add('open');
+          btn.textContent = 'Cerrar ↑';
+        }
+      });
+    });
 
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
